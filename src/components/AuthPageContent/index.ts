@@ -1,0 +1,1 @@
+export { AuthPageContent } from './AuthPageContent'

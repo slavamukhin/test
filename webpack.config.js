@@ -45,7 +45,8 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, 'dist'),
       filename: fileName('js'),
       chunkFilename: fileName('js'),
-      clean: true
+      clean: true,
+      publicPath: '/'
     },
     optimization: {
       runtimeChunk: 'single',
@@ -67,10 +68,11 @@ module.exports = (env, argv) => {
       }
     },
     devServer: {
-      port: 3000,
+      port: 3010,
       open: true,
       hot: true,
       watchFiles: './',
+      historyApiFallback: true,
     },
     devtool: isDev ? 'source-map' : false,
     plugins: plugins(),
@@ -87,9 +89,13 @@ module.exports = (env, argv) => {
           }
         },
         {
-          test: /\.m?tsx$/,
+          test: /\.m?(tsx|ts)$/,
           exclude: /node_modules/,
           use: 'ts-loader'
+        },
+        {
+          test: /\.svg$/,
+          use: ['@svgr/webpack'],
         }
       ]
     }

@@ -1,5 +1,13 @@
-import React from 'react'
+import React, { FC } from 'react'
+import { RoutesApp } from './routes'
 
-export default function App() {
-  return <h1>Uzcard</h1>
+import GlobalStyle from './globalStyles'
+
+export const App: FC = () => {
+  return (
+    <>
+      <GlobalStyle />
+      <RoutesApp />
+    </>
+  )
 }
