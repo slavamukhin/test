@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   min-height: calc(100% - 60px);
 `
 
-export const Loyout: FC<IContent> = ({ children, auth }) => {
+export const Layout: FC<IContent> = ({ children, auth }) => {
   return (
     <>
       <Header></Header>

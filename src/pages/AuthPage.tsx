@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 import styled from 'styled-components'
 import { AuthPageContent } from '../components'
-import { Loyout } from '../loyout/indext'
+import { Layout } from '../layout/indext'
 
 export const AuthPage: FC = () => {
   return (
-    <Loyout auth>
+    <Layout auth>
       <AuthPageContent />
-    </Loyout>
+    </Layout>
   )
 }

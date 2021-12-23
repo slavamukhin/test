@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 import { menu } from './data'
 
-const CostomLink = styled(NavLink)`
+const CustomLink = styled(NavLink)`
   display: block;
   padding: 10px 0 10px 40px;
   &:hover {
@@ -15,14 +15,14 @@ export const MenuItems: FC = () => {
   const menuItems: ReactElement[] = menu.map(
     ({ id, title, to, activeClassName }): ReactElement => (
       <li key={id}>
-        <CostomLink
+        <CustomLink
           to={to}
           className={(navData) =>
             navData.isActive ? `${activeClassName}` : ''
           }
         >
           {title}
-        </CostomLink>
+        </CustomLink>
       </li>
     )
   )

@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 import styled from 'styled-components'
 import { ApiPageContent } from '../components'
-import { Loyout } from '../loyout/indext'
+import { Layout } from '../layout/indext'
 
 export const ApiPage: FC = () => {
   return (
-    <Loyout>
+    <Layout>
       <ApiPageContent />
-    </Loyout>
+    </Layout>
   )
 }

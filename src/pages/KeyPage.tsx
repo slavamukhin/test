@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 import styled from 'styled-components'
 import { KeyPageContent } from '../components'
-import { Loyout } from '../loyout/indext'
+import { Layout } from '../layout/indext'
 
 export const KeyPage: FC = () => {
   return (
-    <Loyout>
+    <Layout>
       <KeyPageContent />
-    </Loyout>
+    </Layout>
   )
 }
