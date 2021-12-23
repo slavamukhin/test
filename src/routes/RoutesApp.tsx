@@ -28,5 +28,6 @@ export const RoutesApp: FC = () => {
       <Route key={id} path={path} element={component} />
     )
   )
+
   return <Routes>{routesApp}</Routes>
 }
