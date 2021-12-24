@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import { normalize } from 'styled-normalize'
- 
+
 const GlobalStyle = createGlobalStyle`
   ${normalize}
   html, #root, body {
@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
     font-weight: 300;
+    color: inherit;
   }
   a:visited {
     color: inherit;
@@ -19,5 +20,5 @@ const GlobalStyle = createGlobalStyle`
     background-color: #edf6ff;
   }
 `;
- 
+
 export default GlobalStyle;

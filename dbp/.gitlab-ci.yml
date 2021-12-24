@@ -1,0 +1,84 @@
+variables:
+  # Basic
+  PROJECT_NAME: api-management-ui
+  PROJECT_NAMESPACE: dbp/api-portal
+
+  # Application
+  NODE_IMAGE: node:14.17.5
+  BUILD_OUTPUT_FOLDER: dist
+
+  # Configs
+  JEST_CONFIG_PATH: dbp/.gitlab-ci/jest.config.js
+  NPMRC_FILE_PATH: dbp/.gitlab-ci/.npmrc
+  SONAR_PROPERTIES_PATH: dbp/.gitlab-ci/sonar.properties
+  DOCKER_FILES: api-management-ui=dbp/docker/Dockerfile
+
+  HELM_CHARTS: dbp/helm/$PROJECT_NAME dbp/helm/$PROJECT_NAME-review
+  ### Stand deployment
+  # префикс для ингрессов стендов
+  STAND_INGRESS_PREFIX: api
+
+  # for dev stand
+  DEV_STAND_CHART: $PROJECT_NAME-$BUILD_VERSION.tgz
+  DEV_STAND_ID: $OCSM_REVIEW_DEV_STAND_ID
+
+  # for review stand
+  REVIEW_STAND_CHART: $PROJECT_NAME-review-$BUILD_VERSION.tgz
+  REVIEW_STAND_TEST_DATA_CHART: ocs-review-test-data-1.0.0.tgz
+
+include:
+  - project: dbp/ci_templates
+    ref: latest
+    file: /pipelines/frontend_npm.yaml
+
+
+### RELEASE
+r:set tag:
+  stage: release
+  script:
+    - curl --request DELETE
+      --silent --show-error
+      --header "PRIVATE-TOKEN:$PROJECT_ACCESS_TOKEN"
+      "$CI_API_V4_URL/projects/$CI_PROJECT_ID/repository/tags/${APP_VERSION}"
+    - curl --request POST
+      --fail --silent --show-error
+      --header "PRIVATE-TOKEN:$PROJECT_ACCESS_TOKEN"
+      "$CI_API_V4_URL/projects/$CI_PROJECT_ID/repository/tags?tag_name=${APP_VERSION}&ref=$CI_COMMIT_SHORT_SHA"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "mainline"
+      when: manual
+    - when: never
+
+r:release:
+  stage: release
+  variables:
+    GITLAB_REGISTRY_URL: $CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/${PROJECT_NAME}
+    HELM_ARTIFACT: $HELM_BUILD_DIR/$PROJECT_NAME-$BUILD_VERSION.tgz
+  script:
+    - tar -zcvf ${PROJECT_NAME}-helm-$APP_VERSION.tar.gz $HELM_ARTIFACT
+    - mkdir -p distrib/{docker,helm}
+    - cp $DOCKER_ARTIFACT_WILDCARD distrib/docker
+    - cp $HELM_ARTIFACT distrib/helm
+    - cd distrib; tar -zcvf ${PROJECT_NAME}-binaries-$APP_VERSION.tar.gz *
+    - mv ${PROJECT_NAME}-binaries-$APP_VERSION.tar.gz ..
+    - cd ..; rm -rf distrib
+    - curl --fail --silent --show-error --header "JOB-TOKEN:$CI_JOB_TOKEN"
+      --upload-file  ${PROJECT_NAME}-helm-$APP_VERSION.tar.gz
+      $GITLAB_REGISTRY_URL/$APP_VERSION/${PROJECT_NAME}-helm-$APP_VERSION.tar.gz
+    - curl --fail --silent --show-error --header "JOB-TOKEN:$CI_JOB_TOKEN"
+      --upload-file  ${PROJECT_NAME}-binaries-$APP_VERSION.tar.gz
+      $GITLAB_REGISTRY_URL/$APP_VERSION/${PROJECT_NAME}-binaries-$APP_VERSION.tar.gz
+  release:
+    name: "$CI_COMMIT_TAG"
+    tag_name: "$APP_VERSION"
+    description: "Test release"
+    assets:
+      links:
+        - name: 'Binaries (tar.gz)'
+          url: '$GITLAB_REGISTRY_URL/$APP_VERSION/${PROJECT_NAME}-binaries-$APP_VERSION.tar.gz'
+        - name: 'Helm (tar.gz)'
+          url: '$GITLAB_REGISTRY_URL/$APP_VERSION/${PROJECT_NAME}-helm-$APP_VERSION.tar.gz'
+  needs: [ "b:app", "b:helm", "setup env" ]
+  only:
+    - /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)/
+

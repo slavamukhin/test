@@ -1,0 +1,4 @@
+ocsm-review:
+  ocsm-ui-facade:
+    api-management-ui:
+      enabled: false

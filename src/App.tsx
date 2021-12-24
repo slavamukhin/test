@@ -1,9 +1,9 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { RoutesApp } from './routes'
 
 import GlobalStyle from './globalStyles'
 
-export const App: FC = () => {
+export const App: React.FC = () => {
   return (
     <>
       <GlobalStyle />

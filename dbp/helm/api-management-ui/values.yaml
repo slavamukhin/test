@@ -1,0 +1,30 @@
+global:
+  pullSecret: dbp-nexus-secret
+  repository: nexus.inno.tech
+  ingress:
+    suffix: ".dbp.inno.tech"
+    tlsSecret: wildcart-dbp-inno-tech
+
+application:
+  ingress:
+    prefix: api
+
+  image:
+    name: dbp/api-portal/api-management-ui
+    pullPolicy: IfNotPresent
+  ports:
+    main: 80
+  probe:
+    liveness:
+      httpGet:
+        path: "/status"
+        port: 80
+    initialDelaySeconds: 10
+
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "50m"
+      memory: "64Mi"

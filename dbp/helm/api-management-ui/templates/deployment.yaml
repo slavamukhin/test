@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "api-management-ui.fullname" . }}
+  labels: {{- include "api-management-ui.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels: {{- include "api-management-ui.selectorLabels" . | nindent 6 }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      name: {{ include "api-management-ui.fullname" . }}-pod
+      labels: {{- include "api-management-ui.selectorLabels" . | nindent 8 }}
+    spec:
+      imagePullSecrets:
+        - name: {{ include "dbp-common.image.pullSecret" . }}
+      restartPolicy: Always
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ include "dbp-common.application.image" . }}
+          imagePullPolicy: {{ .Values.application.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.application.ports.main }}
+              protocol: TCP
+          livenessProbe:
+            httpGet: {{- toYaml .Values.application.probe.liveness.httpGet | nindent 14 }}
+            initialDelaySeconds: {{ .Values.application.probe.initialDelaySeconds }}
+            periodSeconds: 30
+            timeoutSeconds: 10
+          resources: {{ include "dbp-common.application.resources" . | nindent 12 }}

@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "api-management-ui.fullname" . }}-ing
+  labels: {{- include "api-management-ui.labels" . | nindent 4 }}
+spec:
+  rules:
+    - host: {{ .Values.application.ingress.prefix }}{{ include "dbp-common.ingress.suffix" . }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "api-management-ui.fullname" . }}-svc
+                port:
+                  number: {{ .Values.application.ports.main }}
+  tls:
+    - hosts:
+        - {{ .Values.application.ingress.prefix }}{{ include "dbp-common.ingress.suffix" . }}
+      secretName: {{ include "dbp-common.ingress.tlsSecret" . }}

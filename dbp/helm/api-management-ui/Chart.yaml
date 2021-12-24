@@ -1,0 +1,17 @@
+apiVersion: v2
+kubeVersion: '>=1.14.0-0'
+type: application
+name: api-management-ui
+description: Internet banking conversion frontend
+version: 1.0.0
+appVersion: 1.0.0
+
+dependencies:
+  - name: dbp-common
+    version: ^1.0.0
+    repository: "@dbp"
+
+maintainers:
+  - name: Inno.Tech
+    email: dbp@inno.tech
+    url: https://inno.tech/
