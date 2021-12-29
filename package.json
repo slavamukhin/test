@@ -8,7 +8,9 @@
     "build:prod": "webpack --mode production",
     "lint": "eslint --fix 'src/*.{js,jsx,ts,tsx}'",
     "test": "echo 'test'",
-    "format": "prettier --write 'src/*.{json,js,ts,tsx}'"
+    "format": "prettier --write 'src/**/*.{json,js,ts,tsx}'",
+    "clean:code": "del src/interfaces/** '!src/interfaces/model' '!src/interfaces/index.ts'; rm -rf src/interfaces/.openapi-generator; rm -rf src/interfaces/.openapi-generator-ignore; npm run format",
+    "codegen": "rm -rf src/interfaces/model; openapi-generator-cli generate -i https://apimgmt-uzcards.dbp.inno.tech/public/v3/api-docs -g typescript-inversify -o src/interfaces --additional-properties=supportsES6=true,withInterfaces=true; npm run clean:code"
   },
   "resolutions": {
     "styled-components": "^5"
@@ -26,6 +28,7 @@
     "@types/styled-components": "^5.1.18",
     "babel-loader": "^8.2.3",
     "copy-webpack-plugin": "^10.2.0",
+    "del-cli": "^4.0.1",
     "eslint": "^8.5.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.27.1",
@@ -39,10 +42,13 @@
     "webpack-dev-server": "^4.6.0"
   },
   "dependencies": {
+    "@openapitools/openapi-generator-cli": "^2.4.23",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "@types/react-router-dom": "^5.3.2",
     "core-js": "^3.20.0",
+    "mobx": "^6.3.10",
+    "mobx-react-lite": "^3.2.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-is": "^17.0.2",

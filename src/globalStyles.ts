@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 import { normalize } from 'styled-normalize'
 
 const GlobalStyle = createGlobalStyle`
@@ -19,6 +19,6 @@ const GlobalStyle = createGlobalStyle`
   .active {
     background-color: #edf6ff;
   }
-`;
+`
 
-export default GlobalStyle;
+export default GlobalStyle
