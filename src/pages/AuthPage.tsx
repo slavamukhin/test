@@ -1,12 +1,25 @@
-import React, { FC } from 'react'
-import styled from 'styled-components'
+import React, { FC, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { AuthPageContent } from '../components'
 import { Layout } from '../layout/indext'
+import { observer } from 'mobx-react-lite'
+import { authStore } from '../store'
+import { getCookie, ENameCookie } from '../utils'
+import { ERoutesPath } from '../routes'
 
-export const AuthPage: FC = () => {
+export const AuthPage: FC = observer(() => {
+  const navigane = useNavigate()
+  const { token } = authStore
+
+  useEffect(() => {
+    if (getCookie(ENameCookie.AUTH)) {
+      navigane(ERoutesPath.API_PAGE)
+    }
+  }, [token])
+
   return (
     <Layout auth>
       <AuthPageContent />
     </Layout>
   )
-}
+})

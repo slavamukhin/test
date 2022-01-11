@@ -1,1 +1,1 @@
-export { RoutesApp } from './RoutesApp'
+export { RoutesApp, ERoutesPath } from './RoutesApp'

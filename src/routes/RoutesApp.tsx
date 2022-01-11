@@ -7,17 +7,23 @@ interface IRoutes {
   component: ReactNode
 }
 
+export enum ERoutesPath {
+  AUTH_PAGE = '/',
+  API_PAGE = '/api',
+  KEY_PAGE = '/key',
+}
+
 const routes: IRoutes[] = [
   {
-    path: '/',
+    path: ERoutesPath.AUTH_PAGE,
     component: <AuthPage />,
   },
   {
-    path: '/api',
+    path: ERoutesPath.API_PAGE,
     component: <ApiPage />,
   },
   {
-    path: '/key',
+    path: ERoutesPath.KEY_PAGE,
     component: <KeyPage />,
   },
 ]
