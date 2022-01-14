@@ -7,18 +7,43 @@ class AuthStore implements IAuthStore {
   @observable token = ''
   @observable loading = false
   @observable authError = {} as Error
-  @observable login = ''
-  @observable password = ''
 
   constructor() {
     makeAutoObservable(this)
   }
 
   @action
-  getToken = async (data: AuthData) => {
+  refreshToken = async (refrefh_token?: string): Promise<void> => {
+    try {
+      const response: IAuthResponse = await api.post(
+        EApiUrl.KEYCLOAC,
+        queryString.stringify({
+          grant_type: KeycloakConfig.GRANT_TYPE_REFRESH,
+          client_id: KeycloakConfig.CLIENT_ID,
+          client_secret: KeycloakConfig.CLIENT_SECRET,
+          refrefh_token: `${refrefh_token}`,
+        }),
+        {
+          headers: keycloakHeaders
+        }
+      )
+      const { access_token,  expires_in, refresh_token} = response.data
+      this.authError = {} as Error
+      this.token = access_token
+      document.cookie = `token=${access_token}; path=/; max-age=${expires_in}; samesite=strict`
+      document.cookie = `auth=true`
+      document.cookie = `refresh_token=${refresh_token}; path=/; samesite=strict`
+      this.loading = false
+    } catch(error) {
+      this.authError = error as Error
+      this.loading = false
+      console.log('logout')
+    }
+  }
+
+  @action
+  getToken = async (data: AuthData): Promise<void> => {
     const {login, password} = data
-    this.login = login
-    this.password = password 
     try {
       const response: IAuthResponse = await api.post(
         EApiUrl.KEYCLOAC,
@@ -33,11 +58,12 @@ class AuthStore implements IAuthStore {
           headers: keycloakHeaders
         }
       )
-      const { access_token,  expires_in} = response.data
+      const { access_token,  expires_in, refresh_token} = response.data
       this.authError = {} as Error
       this.token = access_token
       document.cookie = `token=${access_token}; path=/; max-age=${expires_in}; samesite=strict`
       document.cookie = `auth=true`
+      document.cookie = `refresh_token=${refresh_token}; path=/; samesite=strict`
       this.loading = false
     } catch(error) {
       this.authError = error as Error

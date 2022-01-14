@@ -1,22 +1,25 @@
 export enum KeycloakConfig {
   GRANT_TYPE = 'password',
   CLIENT_ID = 'tashkent',
-  CLIENT_SECRET = '49c1acdf-78fa-4abe-8b33-62261e4a6553'
+  CLIENT_SECRET = '3235a554-6d5e-4f87-8c8a-6df0a54fc4c0',
+  GRANT_TYPE_REFRESH = 'refresh_token'
 }
 
 export const keycloakHeaders = {
   'Content-Type': 'application/x-www-form-urlencoded',
 }
 
-export type AuthData = Pick<IAuthStore, "login" | "password">
+export type AuthData = {
+  login: string
+  password: string
+}
 
 export interface IAuthStore {
   token: string
   loading: boolean
   authError: Error
-  login: string
-  password: string
   getToken: (data: AuthData) => void
+  refreshToken: (refrefh_token: string) => void
 }
 
 export interface IAuthResponceData {
