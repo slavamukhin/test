@@ -5,6 +5,8 @@ import { keyStore } from '../../store'
 import { ENameCookie, getCookie } from '../../utils'
 import { AttachOutline, BillOutline } from '@inno/icons-kit'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import { ERoutesPath } from '../../routes/RoutesApp'
 
 const StyledTable = styled(Table)`
   button {
@@ -17,13 +19,16 @@ export const KeyPageContent: FC = observer(() => {
 
   useEffect(() => {
     if (!!getCookie(ENameCookie.TOKEN)) {
-      getKeyList(getCookie(ENameCookie.TOKEN))
+      getKeyList()
     }
   }, [])
 
   return (
     <>
       <h1>Список Key</h1>
+      <Link to={ERoutesPath.KEY_CREATE}>
+        <Button> Создать ключь</Button>
+      </Link>
       <StyledTable
         actions={[
           {

@@ -27,17 +27,15 @@ class AuthStore implements IAuthStore {
           headers: keycloakHeaders
         }
       )
-      const { access_token,  expires_in, refresh_token} = response.data
+      const { access_token,  expires_in, refresh_token, refresh_expires_in} = response.data
       this.authError = {} as Error
       this.token = access_token
       document.cookie = `token=${access_token}; path=/; max-age=${expires_in}; samesite=strict`
-      document.cookie = `auth=true`
-      document.cookie = `refresh_token=${refresh_token}; path=/; samesite=strict`
+      document.cookie = `refresh_token=${refresh_token}; max-age=${refresh_expires_in}; path=/; samesite=strict`
       this.loading = false
     } catch(error) {
       this.authError = error as Error
       this.loading = false
-      console.log('logout')
     }
   }
 
@@ -58,12 +56,11 @@ class AuthStore implements IAuthStore {
           headers: keycloakHeaders
         }
       )
-      const { access_token,  expires_in, refresh_token} = response.data
+      const { access_token,  expires_in, refresh_token, refresh_expires_in} = response.data
       this.authError = {} as Error
       this.token = access_token
       document.cookie = `token=${access_token}; path=/; max-age=${expires_in}; samesite=strict`
-      document.cookie = `auth=true`
-      document.cookie = `refresh_token=${refresh_token}; path=/; samesite=strict`
+      document.cookie = `refresh_token=${refresh_token}; max-age=${refresh_expires_in}; path=/; samesite=strict`
       this.loading = false
     } catch(error) {
       this.authError = error as Error

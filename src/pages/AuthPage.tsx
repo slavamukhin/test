@@ -12,7 +12,7 @@ export const AuthPage: FC = observer(() => {
   const { token } = authStore
 
   useEffect(() => {
-    if (getCookie(ENameCookie.AUTH)) {
+    if (getCookie(ENameCookie.REFRESH_TOKEN)) {
       navigane(ERoutesPath.API_PAGE)
     }
   }, [token])

@@ -17,7 +17,7 @@ export const ApiPageContent: FC = observer(() => {
 
   useEffect(() => {
     if (!!getCookie(ENameCookie.TOKEN)) {
-      getApiList(getCookie(ENameCookie.TOKEN))
+      getApiList()
     }
   }, [])
 

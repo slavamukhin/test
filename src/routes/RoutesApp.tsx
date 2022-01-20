@@ -1,6 +1,6 @@
 import React, { FC, ReactNode, ReactElement } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { AuthPage, ApiPage, KeyPage } from '../pages'
+import { AuthPage, ApiPage, KeyPage, KeyCreate } from '../pages'
 
 interface IRoutes {
   path: string
@@ -11,6 +11,7 @@ export enum ERoutesPath {
   AUTH_PAGE = '/',
   API_PAGE = '/api',
   KEY_PAGE = '/key',
+  KEY_CREATE = '/key/create',
 }
 
 const routes: IRoutes[] = [
@@ -25,6 +26,10 @@ const routes: IRoutes[] = [
   {
     path: ERoutesPath.KEY_PAGE,
     component: <KeyPage />,
+  },
+  {
+    path: ERoutesPath.KEY_CREATE,
+    component: <KeyCreate />,
   },
 ]
 

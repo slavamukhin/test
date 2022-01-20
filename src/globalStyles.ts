@@ -1,14 +1,10 @@
 import { createGlobalStyle } from 'styled-components'
 import { normalize } from 'styled-normalize'
+import { } from '@inno/ui-kit'
+
 
 const GlobalStyle = createGlobalStyle`
   ${normalize}
-  html {
-    font-size: 30%;
-  }
-  body {
-    font-size: 3.5rem;
-  }
   html, #root, body {
     height: 100%;
     box-sizing: border-box;

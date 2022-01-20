@@ -4,7 +4,6 @@ export const ContentWrapper = styled.div`
   width: 40%;
   max-width: 400px;
   padding: 40px 40px 0px 40px;
-  border: 2px solid #22242a;
   margin: 40px auto;
 `
 
