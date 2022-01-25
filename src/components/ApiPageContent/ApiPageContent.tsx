@@ -1,10 +1,12 @@
 import React, { FC, useEffect } from 'react'
-import { apiStore, authStore } from '../../store'
+import { apiStore } from '../../store'
 import { observer } from 'mobx-react-lite'
-import { Skeleton, Table } from '@inno/ui-kit'
+import { Button, Skeleton, Table } from '@inno/ui-kit'
 import styled from 'styled-components'
 import { AttachOutline, BillOutline } from '@inno/icons-kit'
 import { ENameCookie, getCookie } from '../../utils'
+import { Link } from 'react-router-dom'
+import { ERoutesPath } from '../../routes'
 
 const StyledTable = styled(Table)`
   button {
@@ -24,6 +26,9 @@ export const ApiPageContent: FC = observer(() => {
   return (
     <>
       <h1>Список API</h1>
+      <Link to={ERoutesPath.API_CREATE}>
+        <Button> Создать Api</Button>
+      </Link>
       <StyledTable
         actions={[
           {

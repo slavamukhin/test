@@ -15,3 +15,13 @@ export const defaultTime: Option2 = {
   label: 'Секунд',
   value: '2',
 }
+
+export const defaultAuthentification: Option2 = {
+  label: 'Basic authentification',
+  value: '1',
+}
+
+export const defaultVersion: Option2 = {
+  label: 'header',
+  value: '1',
+}

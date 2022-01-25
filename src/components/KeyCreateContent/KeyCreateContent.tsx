@@ -25,7 +25,7 @@ import {
   Label,
   FormLine,
 } from './StyledComponed'
-import { itemsSelect, defaultTime } from './data'
+import { itemsSelect, defaultTime, defaultAuthentification } from './data'
 
 export interface IDataForm {
   name?: string
@@ -84,7 +84,6 @@ export const KeyCreateContent: FC = () => {
         quotaRenews: 1637514000,
       },
     }
-    console.log('body', body)
     api
       .post(EApiUrl.KEY_CREATE, body)
       .then(() => {
@@ -190,12 +189,7 @@ export const KeyCreateContent: FC = () => {
           <Select2
             disabled
             items={[]}
-            defaultValue={[
-              {
-                label: 'Basic authentification',
-                value: '1',
-              },
-            ]}
+            defaultValue={defaultAuthentification}
             noOptionsMessage='Варианты не найдены'
             size='sm'
             placeholder=''
