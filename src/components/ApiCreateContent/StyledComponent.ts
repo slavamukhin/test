@@ -25,7 +25,7 @@ export const FormLine = styled.div`
   margin-bottom: 20px;
 `
 export const FormLineShort = styled(FormLine)`
-  width: 380px;
+  width: 48.5%;
 `
 
 export const ApiCreateWrapper = styled.div`
@@ -33,24 +33,24 @@ export const ApiCreateWrapper = styled.div`
 `
 
 export const StyledInput = styled(Input)`
-  width: 380px;
+  width: 48.5%;
 `
 export const Label = styled.div`
   line-height: 40px;
 `
 export const InputRate = styled(Input)`
-  width: 131px;
+  width: 35%;
 `
 
 export const InputPeriod = styled(Input)`
-  width: 70px;
+  width: 19%;
 `
 export const PeriodTime = styled(Select2)`
-  width: 126px;
+  width: 33%
 `
 
 export const VersionSelect = styled(Select2)`
-  width: 380px;
+  width: 48.5%;
 `
 
 export const AuthSelect = styled(Select2)`
@@ -58,16 +58,20 @@ export const AuthSelect = styled(Select2)`
 `
 
 export const WrapperColumn = styled.div`
-  width: 380px;
+  width: 48.5%;
 `
 
 export const VersionNameInput = styled(Input)`
-  width: 198px;
+  width: 52%;
 `
 
 export const StyledDatePicker = styled(DatePicker)`
-  width: 170px;
+  width: 45%;
 `
 export const StyledButtonGroup = styled(ButtonGroup)`
   margin-bottom: 32px;
+`
+
+export const WrapperLoader = styled.div`
+  height: 654px
 `

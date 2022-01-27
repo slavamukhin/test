@@ -22,6 +22,6 @@ export const defaultAuthentification: Option2 = {
 }
 
 export const defaultVersion: Option2 = {
-  label: 'header',
+  label: 'HEADER',
   value: '1',
 }

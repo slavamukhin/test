@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 import { ENameCookie, getCookie } from '../utils'
 
 export const api = {
@@ -6,11 +6,17 @@ export const api = {
     ...config,
     headers: { Authorization: `Bearer ${getCookie(ENameCookie.TOKEN)}` },
   }),
-  post: (url: string, body: any, config?: Object): any => axios.post(url, body, {
+  post: (url: string, body: any, config?: AxiosRequestConfig): any => axios.post(url, body, {
     ...config,
     headers: { Authorization: `Bearer ${getCookie(ENameCookie.TOKEN)}` },
   }),
-  put: () => {},
+  put: (url: string, body: any, config?: AxiosRequestConfig): any => axios.put(url, body, {
+    ...config,
+    headers: { 
+      Authorization: `Bearer ${getCookie(ENameCookie.TOKEN)}`,
+      'x-entity-version': `${getCookie(ENameCookie.EDIT)}`
+  },
+  }),
   patch: () => {},
   delete: () => {},
   head: () => {},
@@ -20,9 +26,10 @@ export const api = {
 const baseUrl: string = 'https://apimgmt-uzcards.dbp.inno.tech'
 
 export enum EApiUrl {
-  KEYCLOAC = 'https://keycloak-uzcards.dbp.inno.tech/auth/realms/Uzcard/protocol/openid-connect/token',
+  KEYCLOAC = 'https://keycloak-uzcards.dbp.inno.tech/auth/realms/Uzcard/protocol/openid-connect/token/',
   API_LIST = 'https://apimgmt-uzcards.dbp.inno.tech/api/v1/apis/',
-  API_CREATE = 'https://apimgmt-uzcards.dbp.inno.tech/api/v1/apis',
-  KEY_LIST = 'https://apimgmt-uzcards.dbp.inno.tech/api/v1/keys',
-  KEY_CREATE = 'https://apimgmt-uzcards.dbp.inno.tech/api/v1/keys'
+  API_CREATE = 'https://apimgmt-uzcards.dbp.inno.tech/api/v1/apis/',
+  KEY_LIST = 'https://apimgmt-uzcards.dbp.inno.tech/api/v1/keys/',
+  KEY_CREATE = 'https://apimgmt-uzcards.dbp.inno.tech/api/v1/keys/',
+  API = 'https://apimgmt-uzcards.dbp.inno.tech/api/v1/apis/'
 } 

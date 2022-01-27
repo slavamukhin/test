@@ -92,7 +92,6 @@ export const KeyCreateContent: FC = () => {
       })
       .catch((err: Error) => {
         setLoading(false)
-        console.log(err)
         setError(err.message)
       })
   }

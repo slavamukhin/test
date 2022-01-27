@@ -1,5 +1,5 @@
-import React, { FC, useEffect } from 'react'
-import { apiStore } from '../../store'
+import React, { FC, useEffect, useState } from 'react'
+import { apiListStore } from '../../store'
 import { observer } from 'mobx-react-lite'
 import { Button, Skeleton, Table } from '@inno/ui-kit'
 import styled from 'styled-components'
@@ -7,6 +7,7 @@ import { AttachOutline, BillOutline } from '@inno/icons-kit'
 import { ENameCookie, getCookie } from '../../utils'
 import { Link } from 'react-router-dom'
 import { ERoutesPath } from '../../routes'
+import { EditApi } from '../EditApi'
 
 const StyledTable = styled(Table)`
   button {
@@ -15,13 +16,23 @@ const StyledTable = styled(Table)`
 `
 
 export const ApiPageContent: FC = observer(() => {
-  const { getApiList, columsApi, dataTableApi, loading } = apiStore
+  const { getApiList, columsApi, dataTableApi, loading } = apiListStore
+  const [open, setOpen] = useState(false)
+  const [apiId, setApiId] = useState('')
 
   useEffect(() => {
     if (!!getCookie(ENameCookie.TOKEN)) {
       getApiList()
     }
   }, [])
+
+  const toggleModal = () => {
+    setOpen(!open)
+  }
+
+  const resetForm = () => {
+    toggleModal()
+  }
 
   return (
     <>
@@ -33,7 +44,10 @@ export const ApiPageContent: FC = observer(() => {
         actions={[
           {
             icon: <AttachOutline />,
-            onClick: () => {},
+            onClick: (e) => {
+              setApiId(e.key)
+              toggleModal()
+            },
           },
           {
             icon: <BillOutline />,
@@ -47,6 +61,12 @@ export const ApiPageContent: FC = observer(() => {
           repeat: 1,
           skeleton: <Skeleton rows={1} />,
         }}
+      />
+      <EditApi
+        open={open}
+        resetForm={resetForm}
+        toggleModal={toggleModal}
+        apiId={apiId}
       />
     </>
   )
