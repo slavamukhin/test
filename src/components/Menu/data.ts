@@ -1,3 +1,5 @@
+import { ERoutesPath } from "../../routes";
+
 interface IMenu {
   id: number
   title: string
@@ -9,13 +11,13 @@ export const menu: IMenu[] = [
   {
     id: 0,
     title: 'API',
-    to: '/api',
+    to: '/ui-api',
     activeClassName: 'active',
   },
   {
     id: 1,
     title: 'Ключи',
-    to: '/key',
+    to: '/ui-key',
     activeClassName: 'active',
   },
 ]

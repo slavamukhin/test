@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: {{ include "api-management-ui.fullname" . }}-ing
   labels: {{- include "api-management-ui.labels" . | nindent 4 }}
+
 spec:
   rules:
     - host: {{ .Values.application.ingress.prefix }}{{ include "dbp-common.ingress.suffix" . }}
@@ -15,6 +16,43 @@ spec:
                 name: {{ include "api-management-ui.fullname" . }}-svc
                 port:
                   number: {{ .Values.application.ports.main }}
+
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.service.backend.host }}
+                port:
+                  number: {{ .Values.service.backend.port }}
+
+  tls:
+    - hosts:
+        - {{ .Values.application.ingress.prefix }}{{ include "dbp-common.ingress.suffix" . }}
+      secretName: {{ include "dbp-common.ingress.tlsSecret" . }}
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "api-management-ui.fullname" . }}-ing2
+  labels: {{- include "api-management-ui.labels" . | nindent 4 }}
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_input_headers 'Host: keycloak{{ include "dbp-common.ingress.suffix" . }}';
+
+spec:
+  rules:
+    - host: {{ .Values.application.ingress.prefix }}{{ include "dbp-common.ingress.suffix" . }}
+      http:
+        paths:
+          - path: /auth
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.keycloak.backend.host }}
+                port:
+                  number: {{ .Values.keycloak.backend.port }}
+
   tls:
     - hosts:
         - {{ .Values.application.ingress.prefix }}{{ include "dbp-common.ingress.suffix" . }}

@@ -9,10 +9,10 @@ interface IRoutes {
 
 export enum ERoutesPath {
   AUTH_PAGE = '/',
-  API_PAGE = '/api',
-  KEY_PAGE = '/key',
-  KEY_CREATE = '/key/create',
-  API_CREATE = '/api/create',
+  API_PAGE = '/ui-api',
+  KEY_PAGE = '/ui-key',
+  KEY_CREATE = '/ui-key/create',
+  API_CREATE = '/ui-api/create',
 }
 
 const routes: IRoutes[] = [

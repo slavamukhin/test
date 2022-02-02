@@ -28,3 +28,13 @@ application:
     limits:
       cpu: "50m"
       memory: "64Mi"
+
+service:
+  backend:
+    host: api-management-svc
+    port: 8080
+
+keycloak:
+  backend:
+    host: api-mgmt-keycloak
+    port: 80
