@@ -1,5 +1,3 @@
-import { ERoutesPath } from "../../routes";
-
 interface IMenu {
   id: number
   title: string

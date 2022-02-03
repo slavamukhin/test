@@ -18,7 +18,10 @@ const GlobalStyle = createGlobalStyle`
     color: inherit;
   }
   .active {
-    background-color: #edf6ff;
+    background-color: #F4821F;
+    &:hover {
+      background-color: #F4821F;
+    }
   }
 `
 

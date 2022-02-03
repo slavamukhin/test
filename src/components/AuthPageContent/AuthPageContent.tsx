@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { InputPassword, Input, Button, useNotifications } from '@inno/ui-kit'
 import { observer } from 'mobx-react-lite'
 import { authStore } from '../../store'
-import { ContentWrapper, InputWrapper, ButtonWrapper } from './StyledComponed'
+import { ContentWrapper, InputWrapper, Title } from './StyledComponed'
 
 export const AuthPageContent: FC = observer(() => {
   const [login, setLogin] = useState('')
@@ -26,30 +26,30 @@ export const AuthPageContent: FC = observer(() => {
   return (
     <>
       <ContentWrapper>
+        <Title>Вход</Title>
         <InputWrapper>
           <Input
-            label='Логин'
-            placeholder='Введите ваш логин'
+            placeholder='Логин'
             onChange={(e) => setLogin(e.target.value)}
+            size='lg'
           />
         </InputWrapper>
         <InputWrapper>
           <InputPassword
-            label='Пароль'
-            placeholder='Введите пароль'
+            placeholder='Пароль'
             onChange={(e) => setPassword(e.target.value)}
+            size='lg'
           />
         </InputWrapper>
-        <ButtonWrapper>
-          <Button
-            size='sm'
-            text='Войти'
-            type='primary'
-            loading={loading}
-            onClick={authClick}
-            disabled={loading}
-          />
-        </ButtonWrapper>
+        <Button
+          size='lg'
+          text='Войти'
+          type='primary'
+          loading={loading}
+          onClick={authClick}
+          disabled={loading}
+          isBlock
+        />
       </ContentWrapper>
     </>
   )

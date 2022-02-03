@@ -18,7 +18,7 @@ export const AuthPage: FC = observer(() => {
   }, [token])
 
   return (
-    <Layout auth>
+    <Layout>
       <AuthPageContent />
     </Layout>
   )

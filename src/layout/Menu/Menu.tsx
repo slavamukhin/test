@@ -1,12 +1,6 @@
 import React, { FC } from 'react'
-import styled from 'styled-components'
 import { MenuItems } from './MenuItems'
-
-const MenuWrapper = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`
+import { MenuWrapper } from './StyledComponents'
 
 export const Menu: FC = () => {
   return (

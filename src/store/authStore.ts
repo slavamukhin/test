@@ -41,6 +41,7 @@ class AuthStore implements IAuthStore {
 
   @action
   getToken = async (data: AuthData): Promise<void> => {
+    this.loading = true
     const {login, password} = data
     try {
       const response: IAuthResponse = await api.post(
@@ -61,6 +62,7 @@ class AuthStore implements IAuthStore {
       this.token = access_token
       document.cookie = `token=${access_token}; path=/; max-age=${expires_in}; samesite=strict`
       document.cookie = `refresh_token=${refresh_token}; max-age=${refresh_expires_in}; path=/; samesite=strict`
+      document.cookie = `name=${login}; path=/; samesite=strict`
       this.loading = false
     } catch(error) {
       this.authError = error as Error

@@ -1,20 +1,11 @@
 import React, { FC, ReactElement } from 'react'
-import styled from 'styled-components'
-import { NavLink } from 'react-router-dom'
+import { CustomLink, Item } from './StyledComponents'
 import { menu } from './data'
-
-const CustomLink = styled(NavLink)`
-  display: block;
-  padding: 10px 0 10px 40px;
-  &:hover {
-    background-color: #edf6ff;
-  }
-`
 
 export const MenuItems: FC = () => {
   const menuItems: ReactElement[] = menu.map(
     ({ id, title, to, activeClassName }): ReactElement => (
-      <li key={id}>
+      <Item key={id}>
         <CustomLink
           to={to}
           className={(navData) =>
@@ -23,7 +14,7 @@ export const MenuItems: FC = () => {
         >
           {title}
         </CustomLink>
-      </li>
+      </Item>
     )
   )
   return <>{menuItems}</>

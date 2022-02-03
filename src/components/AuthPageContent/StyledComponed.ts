@@ -2,16 +2,15 @@ import styled from 'styled-components'
 
 export const ContentWrapper = styled.div`
   width: 40%;
-  max-width: 400px;
-  padding: 40px 40px 0px 40px;
+  width: 320px;
   margin: 40px auto;
+  margin-top: 218px
 `
 
 export const InputWrapper = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 `
 
-export const ButtonWrapper = styled(InputWrapper)`
-  display: flex;
-  justify-content: end;
+export const Title = styled.h3`
+  margin-bottom: 24px;
 `
