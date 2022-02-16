@@ -12,10 +12,15 @@ class KeyStore {
   }
 
   @action
-  getKeyList = async (): Promise<void> => {
+  getKeyList = async (token?: string): Promise<void> => {
     this.loading = true
     try {
-      const response = await api.get(EApiUrl.KEY_LIST)
+      const response = await api.get(
+        EApiUrl.KEY_LIST,
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      )
       this.keyList = response.data
       this.loading = false
     } catch (err) {

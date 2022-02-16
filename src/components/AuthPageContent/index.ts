@@ -1,1 +1,0 @@
-export { AuthPageContent } from './AuthPageContent'

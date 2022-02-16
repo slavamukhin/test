@@ -1,7 +1,7 @@
 export enum KeycloakConfig {
   GRANT_TYPE = 'password',
   CLIENT_ID = 'tashkent',
-  CLIENT_SECRET = '49c1acdf-78fa-4abe-8b33-62261e4a6553',
+  CLIENT_SECRET = '3d8f539e-fcfa-4db1-859d-a3f20d144646',
   GRANT_TYPE_REFRESH = 'refresh_token'
 }
 

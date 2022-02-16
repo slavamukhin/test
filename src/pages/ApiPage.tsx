@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import styled from 'styled-components'
 import { ApiPageContent } from '../components'
 import { Layout } from '../layout/indext'
 

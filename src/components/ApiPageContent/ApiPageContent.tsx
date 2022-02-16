@@ -4,10 +4,10 @@ import { observer } from 'mobx-react-lite'
 import { Button, Skeleton, Table } from '@inno/ui-kit'
 import styled from 'styled-components'
 import { AttachOutline, BillOutline } from '@inno/icons-kit'
-import { ENameCookie, getCookie } from '../../utils'
 import { Link } from 'react-router-dom'
 import { ERoutesPath } from '../../routes'
 import { EditApi } from '../EditApi'
+import { useKeycloak } from '@react-keycloak/web'
 
 const StyledTable = styled(Table)`
   button {
@@ -19,12 +19,13 @@ export const ApiPageContent: FC = observer(() => {
   const { getApiList, columsApi, dataTableApi, loading } = apiListStore
   const [open, setOpen] = useState(false)
   const [apiId, setApiId] = useState('')
+  const { initialized, keycloak } = useKeycloak()
 
   useEffect(() => {
-    if (!!getCookie(ENameCookie.TOKEN)) {
-      getApiList()
+    if (initialized) {
+      getApiList(keycloak.token)
     }
-  }, [])
+  }, [initialized])
 
   const toggleModal = () => {
     setOpen(!open)

@@ -11,10 +11,14 @@ class ApiListStore {
   }
 
   @action
-  getApiList = async (): Promise<void> => {
+  getApiList = async (token?: string): Promise<void> => {
     this.loading = true
     try {
-      const response = await api.get(EApiUrl.API_LIST)
+      const response = await api.get(
+        EApiUrl.API_LIST,
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        })
       this.apiList = response.data
       this.loading = false
     } catch (err) {

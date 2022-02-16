@@ -32,6 +32,7 @@ module.exports = {
     'require-jsdoc': 'off',
     'eol-last': 'error',
     'no-dupe-keys': 'off',
-    'object-curly-spacing': ['error', 'always']
+    'object-curly-spacing': ['error', 'always'],
+    'new-cap': 0,
   }
 }

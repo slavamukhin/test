@@ -26,6 +26,9 @@ import {
   FormLine,
 } from './StyledComponed'
 import { itemsSelect, defaultTime, defaultAuthentification } from './data'
+import { useKeycloak } from '@react-keycloak/web'
+import { useNavigate } from 'react-router-dom'
+import { ERoutesPath } from '../../routes'
 
 export interface IDataForm {
   name?: string
@@ -38,6 +41,8 @@ export interface IDataForm {
 }
 
 export const KeyCreateContent: FC = () => {
+  const { keycloak } = useKeycloak()
+  const navigate = useNavigate()
   const [periodTime, setPeriodTime] = useState<Option2>(defaultTime)
   const [quotaTime, setQuotaTime] = useState<Option2>(defaultTime)
   const [password, setPassword] = useState('')
@@ -85,10 +90,12 @@ export const KeyCreateContent: FC = () => {
       },
     }
     api
-      .post(EApiUrl.KEY_CREATE, body)
+      .post(EApiUrl.KEY_CREATE, body, {
+        headers: { Authorization: `Bearer ${keycloak.token}` },
+      })
       .then(() => {
         setLoading(false)
-        resetForm()
+        navigate(ERoutesPath.KEY_PAGE)
       })
       .catch((err: Error) => {
         setLoading(false)
@@ -96,16 +103,9 @@ export const KeyCreateContent: FC = () => {
       })
   }
 
-  const resetForm = () => {
-    reset()
-    setQuotaTime(defaultTime)
-    setPeriodTime(defaultTime)
-    setPassword('')
-  }
-
   return (
     <KeyCreateContentWrapper>
-      <form onSubmit={handleSubmit(submitForm)} onReset={resetForm}>
+      <form onSubmit={handleSubmit(submitForm)}>
         <MainTitle>Новый ключ</MainTitle>
         <Title>Основные параметры</Title>
         <FormLine>
@@ -218,7 +218,12 @@ export const KeyCreateContent: FC = () => {
             loading={loading}
             disabled={loading}
           />
-          <Button text='Отменить' buttonType='reset' disabled={loading} />
+          <Button
+            text='Отменить'
+            buttonType='reset'
+            disabled={loading}
+            onClick={() => navigate(ERoutesPath.KEY_PAGE)}
+          />
         </ButtonGroup>
       </form>
     </KeyCreateContentWrapper>

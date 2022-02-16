@@ -1,25 +1,19 @@
 import React, { FC, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AuthPageContent } from '../components'
-import { Layout } from '../layout/indext'
 import { observer } from 'mobx-react-lite'
-import { authStore } from '../store'
-import { getCookie, ENameCookie } from '../utils'
 import { ERoutesPath } from '../routes'
+import { useKeycloak } from '@react-keycloak/web'
+import { LoadingIndicator } from '@inno/ui-kit'
 
 export const AuthPage: FC = observer(() => {
   const navigane = useNavigate()
-  const { token } = authStore
+  const { initialized } = useKeycloak()
 
   useEffect(() => {
-    if (getCookie(ENameCookie.REFRESH_TOKEN)) {
+    if (initialized) {
       navigane(ERoutesPath.API_PAGE)
     }
-  }, [token])
+  }, [initialized])
 
-  return (
-    <Layout>
-      <AuthPageContent />
-    </Layout>
-  )
+  return <LoadingIndicator isVisible position='top' />
 })

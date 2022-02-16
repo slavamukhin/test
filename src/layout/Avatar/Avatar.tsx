@@ -1,12 +1,14 @@
+import { useKeycloak } from '@react-keycloak/web'
 import React, { FC } from 'react'
-import { ENameCookie, getCookie } from '../../utils'
 import { AvatarWrapper, StyledAvatar, Name } from './StyledComponent'
 
 export const Avatar: FC = () => {
+  const { keycloak } = useKeycloak()
+
   return (
     <AvatarWrapper>
       <StyledAvatar />
-      <Name>{getCookie(ENameCookie.NAME)}</Name>
+      <Name>{keycloak.subject}</Name>
     </AvatarWrapper>
   )
 }

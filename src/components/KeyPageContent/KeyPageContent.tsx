@@ -2,11 +2,11 @@ import React, { FC, useEffect } from 'react'
 import { Button, Table, Skeleton } from '@inno/ui-kit'
 import { observer } from 'mobx-react-lite'
 import { keyStore } from '../../store'
-import { ENameCookie, getCookie } from '../../utils'
 import { AttachOutline, BillOutline } from '@inno/icons-kit'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { ERoutesPath } from '../../routes/RoutesApp'
+import { useKeycloak } from '@react-keycloak/web'
 
 const StyledTable = styled(Table)`
   button {
@@ -16,12 +16,13 @@ const StyledTable = styled(Table)`
 
 export const KeyPageContent: FC = observer(() => {
   const { getKeyList, columsKey, dataTableKey, loading } = keyStore
+  const { initialized, keycloak } = useKeycloak()
 
   useEffect(() => {
-    if (!!getCookie(ENameCookie.TOKEN)) {
-      getKeyList()
+    if (initialized) {
+      getKeyList(keycloak.token)
     }
-  }, [])
+  }, [initialized])
 
   return (
     <>

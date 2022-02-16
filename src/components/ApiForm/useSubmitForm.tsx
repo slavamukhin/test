@@ -3,9 +3,11 @@ import { ApiObject, VersionsDataObject } from '../../interfaces'
 import { useNavigate } from 'react-router-dom'
 import { ERoutesPath } from '../../routes'
 import { Option2 } from '@inno/ui-kit'
+import { useKeycloak } from '@react-keycloak/web'
 
 export const useSubmitForm = (url: string) => {
   const navigate = useNavigate()
+  const { keycloak } = useKeycloak()
   const submitForm = (
     data: any,
     setError: (val: string) => void,
@@ -66,7 +68,9 @@ export const useSubmitForm = (url: string) => {
       },
     }
 
-    api[method](url, body)
+    api[method](url, body, {
+      headers: { Authorization: `Bearer ${keycloak.token}` },
+    })
       .then(() => {
         method === 'put' ? navigate(0) : navigate(ERoutesPath.API_PAGE)
       })

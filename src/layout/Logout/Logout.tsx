@@ -4,13 +4,14 @@ import { ENameCookie } from '../../utils'
 import { removeCookie } from '../../utils/cookie'
 import { ERoutesPath } from '../../routes'
 import { ExitButton } from './StyledComponent'
+import { useKeycloak } from '@react-keycloak/web'
 
 export const Logout: FC = () => {
   const navigane = useNavigate()
+  const { keycloak } = useKeycloak()
 
   const logout = () => {
-    removeCookie(ENameCookie.REFRESH_TOKEN)
-    navigane(ERoutesPath.AUTH_PAGE)
+    keycloak.logout()
   }
 
   return <ExitButton onClick={logout}>Выход</ExitButton>
