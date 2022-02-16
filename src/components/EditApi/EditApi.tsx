@@ -3,7 +3,6 @@ import React, { FC, useEffect } from 'react'
 import { ApiForm } from '../ApiForm'
 import { apiStore } from '../../store'
 import { observer } from 'mobx-react-lite'
-import { useKeycloak } from '@react-keycloak/web'
 
 export interface EditApiProps {
   toggleModal: () => void
@@ -15,11 +14,10 @@ export interface EditApiProps {
 export const EditApi: FC<EditApiProps> = observer(
   ({ toggleModal, resetForm, open, apiId }) => {
     const { getApi, apiValues } = apiStore
-    const { keycloak } = useKeycloak()
 
     useEffect(() => {
       if (apiId) {
-        getApi(apiId, keycloak.token)
+        getApi(apiId)
       }
     }, [apiId])
 

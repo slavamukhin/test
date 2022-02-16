@@ -90,9 +90,7 @@ export const KeyCreateContent: FC = () => {
       },
     }
     api
-      .post(EApiUrl.KEY_CREATE, body, {
-        headers: { Authorization: `Bearer ${keycloak.token}` },
-      })
+      .post(EApiUrl.KEY_CREATE, body)
       .then(() => {
         setLoading(false)
         navigate(ERoutesPath.KEY_PAGE)

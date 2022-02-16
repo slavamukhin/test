@@ -68,9 +68,7 @@ export const useSubmitForm = (url: string) => {
       },
     }
 
-    api[method](url, body, {
-      headers: { Authorization: `Bearer ${keycloak.token}` },
-    })
+    api[method](url, body)
       .then(() => {
         method === 'put' ? navigate(0) : navigate(ERoutesPath.API_PAGE)
       })

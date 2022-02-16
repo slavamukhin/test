@@ -16,11 +16,11 @@ const StyledTable = styled(Table)`
 
 export const KeyPageContent: FC = observer(() => {
   const { getKeyList, columsKey, dataTableKey, loading } = keyStore
-  const { initialized, keycloak } = useKeycloak()
+  const { initialized } = useKeycloak()
 
   useEffect(() => {
     if (initialized) {
-      getKeyList(keycloak.token)
+      getKeyList()
     }
   }, [initialized])
 

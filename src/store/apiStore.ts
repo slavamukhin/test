@@ -12,15 +12,10 @@ class ApiStore {
   }
 
   @action
-  getApi = (apiId: string, token?: string): void => {
+  getApi = (apiId: string): void => {
     this.data = false
     this.pendding = true
-    api.get(
-      EApiUrl.API + apiId,
-      {
-        headers: { Authorization: `Bearer ${token}` }
-      }
-    )
+    api.get(EApiUrl.API + apiId)
       .then((response) => {
         this.api = response.data
         this.data = true

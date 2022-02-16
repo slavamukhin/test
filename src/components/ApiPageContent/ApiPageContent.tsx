@@ -19,11 +19,11 @@ export const ApiPageContent: FC = observer(() => {
   const { getApiList, columsApi, dataTableApi, loading } = apiListStore
   const [open, setOpen] = useState(false)
   const [apiId, setApiId] = useState('')
-  const { initialized, keycloak } = useKeycloak()
+  const { initialized } = useKeycloak()
 
   useEffect(() => {
     if (initialized) {
-      getApiList(keycloak.token)
+      getApiList()
     }
   }, [initialized])
 
