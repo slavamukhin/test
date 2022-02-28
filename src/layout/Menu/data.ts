@@ -8,7 +8,7 @@ interface IMenu {
 export const menu: IMenu[] = [
   {
     id: 0,
-    title: 'API',
+    title: 'Список API',
     to: '/ui-api',
     activeClassName: 'active',
   },

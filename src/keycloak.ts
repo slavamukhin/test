@@ -1,5 +1,4 @@
-import Keycloak from 'keycloak-js';
-
+import Keycloak from 'keycloak-js'
 
 const keycloak = Keycloak({
   url: 'https://keycloak-uzcards.dbp.inno.tech/auth',

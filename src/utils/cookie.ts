@@ -4,8 +4,14 @@ export enum ENameCookie {
   TOKEN = 'token',
   REFRESH_TOKEN = 'refresh_token',
   EDIT = 'edit',
-  NAME = 'name'
+  NAME = 'name',
 }
-export const getCookie = (name: ENameCookie): string | undefined => Cookies.get(`${name}`)
+export const getCookie = (name: ENameCookie): string | undefined =>
+  Cookies.get(`${name}`)
 
-export const removeCookie = (name: ENameCookie): void => Cookies.remove(`${name}`)
+export const removeCookie = (name: ENameCookie): void =>
+  Cookies.remove(`${name}`)
+
+export const setCookie = (name: string, value: string, config: Object) => {
+  Cookies.set(name, value, config)
+}

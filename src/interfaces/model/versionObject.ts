@@ -21,6 +21,9 @@ export interface VersionObject {
   /**
    * The expires header, if set, will deprecate access to the API after the time specified.          |The entry here takes the form of: \" YYYY -MM - DD HH : MM \". If this is not set the version will never expire.
    */
-  expires?: string
-  versionName?: string
+  expires: string
+  /**
+   * The version name of the api.
+   */
+  versionName: string
 }

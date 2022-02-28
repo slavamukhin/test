@@ -1,1 +1,7 @@
-export { KeycloakConfig, keycloakHeaders, IAuthStore, AuthData, IAuthResponse } from './authTypes'
+export {
+  KeycloakConfig,
+  keycloakHeaders,
+  IAuthStore,
+  AuthData,
+  IAuthResponse,
+} from './authTypes'

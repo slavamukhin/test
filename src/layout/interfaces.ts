@@ -1,6 +1,5 @@
-import { ReactElement } from 'react'
+import { ReactNode } from 'react'
 
 export interface IContent {
-  children: ReactElement
+  children: ReactNode
 }
-

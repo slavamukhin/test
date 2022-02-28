@@ -1,7 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
 import { normalize } from 'styled-normalize'
-import { } from '@inno/ui-kit'
-
 
 const GlobalStyle = createGlobalStyle`
   ${normalize}

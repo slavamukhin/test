@@ -11,13 +11,13 @@ import {
   InputPeriod,
   PeriodTime,
   VersionSelect,
-  AuthSelect,
   WrapperColumn,
   VersionNameInput,
   StyledDatePicker,
   StyledButtonGroup,
   WrapperLoader,
-} from '../ApiCreateContent/StyledComponent'
+  FullSelect,
+} from '../StyledComponent'
 import {
   Button,
   Checkbox,
@@ -31,13 +31,13 @@ import {
   defaultTime,
   defaultVersion,
   itemsSelect,
-} from '../KeyCreateContent/data'
-import { itemsSelectVersion } from '../ApiCreateContent/data'
-import { InputFile } from '../InputFile'
+} from '../KeyForm/data'
+import { itemsSelectVersion } from '../../ApiCreateContent/data'
+import { InputFile } from '../../InputFile'
 import { useNotifications } from '@inno/ui-kit'
 import { useSubmitForm } from './useSubmitForm'
-import { EApiUrl } from '../../api'
-import { apiStore } from '../../store'
+import { EApiUrl } from '../../../api'
+import { apiStore } from '../../../store'
 import { observer } from 'mobx-react-lite'
 import { ApiFormProps, IDataForm } from './types'
 
@@ -58,7 +58,8 @@ export const ApiForm: FC<ApiFormProps> = observer(
     const submitForm = useSubmitForm(
       edit ? EApiUrl.API_CREATE + apiId : EApiUrl.API_CREATE
     )
-    const { data, pendding } = apiStore
+    const { data, pending } = apiStore
+    const method = edit ? 'put' : 'post'
 
     useEffect(() => {
       setValue('yourDetails', {
@@ -103,8 +104,6 @@ export const ApiForm: FC<ApiFormProps> = observer(
       }
     }, [error])
 
-    const method = edit ? 'put' : 'post'
-
     const submit: SubmitHandler<IDataForm> = (data: IDataForm) => {
       submitForm(
         data,
@@ -120,7 +119,7 @@ export const ApiForm: FC<ApiFormProps> = observer(
       )
     }
 
-    if (pendding) {
+    if (pending) {
       return (
         <WrapperLoader>
           <LoadingIndicator isVisible position='center' />
@@ -230,7 +229,7 @@ export const ApiForm: FC<ApiFormProps> = observer(
             <h6>Авторизация</h6>
           </FormLine>
           <FormLineShort>
-            <AuthSelect
+            <FullSelect
               disabled
               items={[]}
               defaultValue={defaultAuthentification}

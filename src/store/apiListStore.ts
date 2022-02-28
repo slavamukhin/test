@@ -1,66 +1,65 @@
+import { Option2 } from '@inno/ui-kit'
 import { ColumnsType } from '@inno/ui-kit/lib/Table/types'
-import { makeAutoObservable, action, observable, computed, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 import { api, EApiUrl } from '../api'
-import { ApiObject } from '../interfaces'
+import { ApiObject, VersionObject } from '../interfaces'
 
 class ApiListStore {
-  @observable apiList: ApiObject[] = []
-  @observable loading = false
+  apiList: ApiObject[] = []
+  loading = true
+  data = false
+  chosenApi = ''
+
   constructor() {
     makeAutoObservable(this)
   }
 
-  @action
+  chooseApi = (api: string): void => {
+    this.chosenApi = api
+  }
+
   getApiList = async (): Promise<void> => {
     this.loading = true
     try {
       const response = await api.get(EApiUrl.API_LIST)
-      this.apiList = response.data
-      this.loading = false
+
+      runInAction(() => {
+        this.apiList = response.data
+        this.loading = false
+        this.data = true
+      })
     } catch (err) {
-      this.loading = false
+      runInAction(() => {
+        this.loading = false
+        this.data = false
+      })
       console.error(err)
     }
-    
   }
 
-  @computed
-  get columsApi (): ColumnsType<Record<string, boolean | string>> {
-    return [
-      {
-        dataIndex: 'listenPath',
-        sorter: true,
-        title: 'listenPath',
-      },
-      {
-        dataIndex: 'name',
-        sorter: true,
-        title: 'name',
-      },
-      {
-        dataIndex: 'targetUrl',
-        sorter: true,
-        title: 'targetUrl',
-      },
-      {
-        dataIndex: 'versionData',
-        sorter: true,
-        title: 'versionData',
-      }
-    ]
+  get availableApisList(): Array<Option2> {
+    return this.apiList.map((api: ApiObject, index: number) => ({
+      label: api.apiId,
+      value: `${index}`,
+    }))
   }
 
-  @computed
-  get dataTableApi (): Record<string, any>[] {
-    return this.apiList.map(api => (
-      {
-        listenPath: api.listenPath,
-        name: api.name,
-        key: api.apiId,
-        targetUrl: api.targetUrl,
-        versionData: api.versionData
-      }
-    ))
+  get versionChosenApi(): Array<Option2> {
+    const api = this.apiList.find((api) => api.apiId === this.chosenApi)
+    return api?.versionData?.versions?.map(
+        (version: VersionObject, index: number) => ({
+          label: version.versionName as string,
+          value: `${index}`,
+        })
+    ) as Array<Option2>
+  }
+
+  get isEmptyApiList() {
+    return this.apiList.length < 1
+  }
+
+  get totalCount(): number {
+    return this.apiList.length
   }
 }
 

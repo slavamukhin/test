@@ -16,25 +16,25 @@ import { VersionObject } from './versionObject'
  */
 export interface VersionsDataObject {
   /**
-   * The anme of Default version if set
+   * The name of Default version if set
    */
-  defaultVersion?: string
+  defaultVersion: string
   /**
    * If set to true Tyk will skip version checking, you can still apply blacklist and              whitelist information to your API by specifying a Default version within the versions map.
    */
-  notVersioned?: boolean
+  notVersioned: boolean
   /**
    * Can either be: header, urlParam or url. Tyk will then look for the version information in the appropriate location.
    */
-  versionLocation?: VersionsDataObject.VersionLocationEnum
+  versionLocation: VersionsDataObject.VersionLocationEnum
   /**
    * The name of the key to check for versioning information.
    */
-  versionLocationKey?: string
+  versionLocationKey: string
   /**
    * This is a keyed JSON objects holding Swagger OpenAPI specification
    */
-  versions?: Array<VersionObject>
+  versions: Array<VersionObject>
 }
 export namespace VersionsDataObject {
   export type VersionLocationEnum = 'urlParam' | 'HEADER'

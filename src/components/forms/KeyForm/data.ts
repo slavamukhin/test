@@ -1,4 +1,4 @@
-import { Option2 } from "@inno/ui-kit"
+import { Option2 } from '@inno/ui-kit'
 
 export const itemsSelect: Option2[] = [
   {

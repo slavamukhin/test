@@ -5,7 +5,7 @@ export const CustomLink = styled(NavLink)`
   display: inline-block;
   padding: 12px 18px;
   &:hover {
-    background-color: rgba(255, 255, 255, .2);
+    background-color: rgba(255, 255, 255, 0.2);
   }
   font-size: 14px;
 `

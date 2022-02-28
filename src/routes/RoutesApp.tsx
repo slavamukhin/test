@@ -1,6 +1,12 @@
 import React, { FC, ReactNode, ReactElement } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { AuthPage, ApiPage, KeyPage, KeyCreate, ApiCreate } from '../pages'
+import {
+  AuthPage,
+  ApiListPage,
+  KeyListPage,
+  KeyCreate,
+  ApiCreate
+} from '../pages'
 
 interface IRoutes {
   path: string
@@ -22,11 +28,11 @@ const routes: IRoutes[] = [
   },
   {
     path: ERoutesPath.API_PAGE,
-    component: <ApiPage />,
+    component: <ApiListPage />,
   },
   {
     path: ERoutesPath.KEY_PAGE,
-    component: <KeyPage />,
+    component: <KeyListPage />,
   },
   {
     path: ERoutesPath.KEY_CREATE,
@@ -40,9 +46,9 @@ const routes: IRoutes[] = [
 
 export const RoutesApp: FC = () => {
   const routesApp: ReactElement[] = routes.map(
-    ({ path, component }, id): ReactElement => (
-      <Route key={id} path={path} element={component} />
-    )
+      ({ path, component }, id): ReactElement => (
+        <Route key={id} path={path} element={component} />
+      )
   )
   return <Routes>{routesApp}</Routes>
 }

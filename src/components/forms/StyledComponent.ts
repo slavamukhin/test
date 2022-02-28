@@ -28,12 +28,20 @@ export const FormLineShort = styled(FormLine)`
   width: 48.5%;
 `
 
+export const FormLineShort2 = styled(FormLine)`
+  width: 369px;
+`
+
 export const ApiCreateWrapper = styled.div`
   width: 784px;
 `
 
 export const StyledInput = styled(Input)`
   width: 48.5%;
+`
+
+export const StyledInputFull = styled(Input)`
+  width: 100%;
 `
 export const Label = styled.div`
   line-height: 40px;
@@ -46,15 +54,19 @@ export const InputPeriod = styled(Input)`
   width: 19%;
 `
 export const PeriodTime = styled(Select2)`
-  width: 33%
+  width: 33%;
 `
 
 export const VersionSelect = styled(Select2)`
   width: 48.5%;
 `
 
-export const AuthSelect = styled(Select2)`
+export const FullSelect = styled(Select2)`
   width: 100%;
+`
+
+export const StyledSelect = styled(Select2)`
+  width: 48.5%;
 `
 
 export const WrapperColumn = styled.div`
@@ -73,5 +85,5 @@ export const StyledButtonGroup = styled(ButtonGroup)`
 `
 
 export const WrapperLoader = styled.div`
-  height: 654px
+  height: 654px;
 `

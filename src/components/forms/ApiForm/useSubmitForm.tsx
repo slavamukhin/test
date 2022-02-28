@@ -1,13 +1,12 @@
-import { api } from '../../api'
-import { ApiObject, VersionsDataObject } from '../../interfaces'
+import { api } from '../../../api'
+import { ApiObject, VersionsDataObject } from '../../../interfaces'
 import { useNavigate } from 'react-router-dom'
-import { ERoutesPath } from '../../routes'
+import { ERoutesPath } from '../../../routes'
 import { Option2 } from '@inno/ui-kit'
-import { useKeycloak } from '@react-keycloak/web'
 
 export const useSubmitForm = (url: string) => {
   const navigate = useNavigate()
-  const { keycloak } = useKeycloak()
+
   const submitForm = (
     data: any,
     setError: (val: string) => void,
@@ -52,6 +51,8 @@ export const useSubmitForm = (url: string) => {
       name: name as string,
       targetUrl: targetUrl as string,
       versionData: {
+        // поле должно быть не обязательным, но пока оно такое
+        defaultVersion: '',
         notVersioned,
         versionLocation:
           versionLocation === 'HEADER'

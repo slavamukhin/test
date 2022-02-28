@@ -1,6 +1,6 @@
 import { Modal } from '@inno/ui-kit'
 import React, { FC, useEffect } from 'react'
-import { ApiForm } from '../ApiForm'
+import { ApiForm } from '../forms/ApiForm'
 import { apiStore } from '../../store'
 import { observer } from 'mobx-react-lite'
 

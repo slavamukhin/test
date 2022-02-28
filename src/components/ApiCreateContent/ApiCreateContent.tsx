@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import { MainTitlt, ApiCreateWrapper } from './StyledComponent'
-import { ApiForm } from '../ApiForm'
+import { MainTitlt, ApiCreateWrapper } from '../forms/StyledComponent'
+import { ApiForm } from '../forms/ApiForm'
 import { ERoutesPath } from '../../routes'
 import { useNavigate } from 'react-router-dom'
 

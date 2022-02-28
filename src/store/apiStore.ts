@@ -1,12 +1,13 @@
 import { makeAutoObservable, action, observable, computed, toJS } from 'mobx'
 import { api, EApiUrl } from '../api'
 import { ApiObject } from '../interfaces'
+import { setCookie } from '../utils/cookie'
 
 class ApiStore {
   @observable api: ApiObject = {} as ApiObject
-  @observable pendding = false
+  @observable pending = false
   @observable data = false
-  
+
   constructor() {
     makeAutoObservable(this)
   }
@@ -14,16 +15,18 @@ class ApiStore {
   @action
   getApi = (apiId: string): void => {
     this.data = false
-    this.pendding = true
-    api.get(EApiUrl.API + apiId)
+    this.pending = true
+    api
+      .get(EApiUrl.API + apiId)
       .then((response) => {
         this.api = response.data
         this.data = true
-        document.cookie = `edit=${response.headers['x-entity-version']};  path=/; samesite=strict`
+        setCookie('edit', response.headers['x-entity-version'], { path: '' })
       })
       .catch((error) => console.error('error', error))
       .finally(() => {
-        this.pendding = false
+        this.pending = false
+        this.data = false
       })
   }
 
