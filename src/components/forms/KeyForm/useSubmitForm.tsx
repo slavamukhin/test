@@ -33,7 +33,7 @@ export const useSubmitForm = (url: string) => {
     api[method](url, body)
       .then(() => {
         setLoading(false)
-        method === 'put' ? navigate(0) : navigate(ERoutesPath.KEY_PAGE)
+        method === 'put' ? navigate(0) : navigate(ERoutesPath.KEY_LIST_PAGE)
       })
       .catch((err: Error) => {
         setLoading(false)

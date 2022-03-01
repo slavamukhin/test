@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { observer } from 'mobx-react-lite';
-import { useNavigate } from 'react-router-dom';
-import { EmptyBlock, Preloader, Table } from '@inno/ui-kit';
-import { AttachOutline, DocsOutline, PowerOutline } from '@inno/icons-kit';
-import { ColumnsType } from '@inno/ui-kit/lib/Table/types';
-import { useKeycloak } from '@react-keycloak/web';
-import { Box } from '../../layout/Box';
-import { KeyShortDescriptionObjectDto } from '../../interfaces';
-import { keyListStore } from '../../store';
-import { ERoutesPath } from '../../routes';
-import { EditKey } from '../EditKey';
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { observer } from 'mobx-react-lite'
+import { useNavigate } from 'react-router-dom'
+import { EmptyBlock, Preloader, Table } from '@inno/ui-kit'
+import { DocsOutline, PowerOutline, RedactOutline } from '@inno/icons-kit'
+import { ColumnsType } from '@inno/ui-kit/lib/Table/types'
+import { useKeycloak } from '@react-keycloak/web'
+import { Box } from '../../layout/Box'
+import { KeyShortDescriptionObjectDto } from '../../interfaces'
+import { keyListStore } from '../../store'
+import { ERoutesPath } from '../../routes'
+import { EditKey } from '../EditKey'
 
 const columns: ColumnsType<KeyShortDescriptionObjectDto> = [
   {
@@ -52,11 +52,11 @@ export const KeyList = observer(() => {
     return (
       <StyledBox>
         <EmptyBlock
-          text="Ещё не создано ни одного ключа"
+          text='Ещё не создано ни одного ключа'
           icon={<DocsOutline />}
           action={{
             text: 'Создать ключ',
-            onClick: () => navigate(ERoutesPath.KEY_CREATE)
+            onClick: () => navigate(ERoutesPath.KEY_CREATE),
           }}
         />
       </StyledBox>
@@ -68,10 +68,10 @@ export const KeyList = observer(() => {
       <Table<KeyShortDescriptionObjectDto>
         columns={columns}
         data={keyList}
-        rowKey="keyId"
+        rowKey='keyId'
         actions={[
           {
-            icon: <AttachOutline />,
+            icon: <RedactOutline />,
             onClick: (e) => {
               setKeyId(e.keyId)
               toggleModal()

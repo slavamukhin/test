@@ -8,7 +8,7 @@ export const KeyCreateContent: FC = () => {
   const navigane = useNavigate()
 
   const resetForm = () => {
-    navigane(ERoutesPath.KEY_PAGE)
+    navigane(ERoutesPath.KEY_LIST_PAGE)
   }
 
   return (

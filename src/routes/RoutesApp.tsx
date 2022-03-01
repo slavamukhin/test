@@ -1,54 +1,51 @@
-import React, { FC, ReactNode, ReactElement } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import React, { FC } from 'react'
+import { RouteObject, useRoutes } from 'react-router-dom'
 import {
   AuthPage,
   ApiListPage,
   KeyListPage,
   KeyCreate,
-  ApiCreate
+  ApiCreate,
+  KeyPage
 } from '../pages'
-
-interface IRoutes {
-  path: string
-  component: ReactNode
-}
 
 export enum ERoutesPath {
   AUTH_PAGE = '/',
   API_PAGE = '/ui-api',
-  KEY_PAGE = '/ui-key',
+  KEY_LIST_PAGE = '/ui-key',
   KEY_CREATE = '/ui-key/create',
   API_CREATE = '/ui-api/create',
 }
 
-const routes: IRoutes[] = [
+const routes: RouteObject[] = [
   {
     path: ERoutesPath.AUTH_PAGE,
-    component: <AuthPage />,
+    element: <AuthPage />,
   },
   {
     path: ERoutesPath.API_PAGE,
-    component: <ApiListPage />,
+    element: <ApiListPage />,
   },
   {
-    path: ERoutesPath.KEY_PAGE,
-    component: <KeyListPage />,
+    path: ERoutesPath.KEY_LIST_PAGE,
+    element: <KeyListPage />,
+  },
+  {
+    path: `${ERoutesPath.KEY_LIST_PAGE}/:id`,
+    element: <KeyPage />,
   },
   {
     path: ERoutesPath.KEY_CREATE,
-    component: <KeyCreate />,
+    element: <KeyCreate />,
   },
   {
     path: ERoutesPath.API_CREATE,
-    component: <ApiCreate />,
+    element: <ApiCreate />,
   },
 ]
 
 export const RoutesApp: FC = () => {
-  const routesApp: ReactElement[] = routes.map(
-      ({ path, component }, id): ReactElement => (
-        <Route key={id} path={path} element={component} />
-      )
-  )
-  return <Routes>{routesApp}</Routes>
+  const element = useRoutes(routes)
+
+  return element
 }

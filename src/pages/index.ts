@@ -1,5 +1,6 @@
 export { AuthPage } from './AuthPage'
 export { ApiListPage } from './ApiListPage'
 export { KeyListPage } from './KeyListPage'
+export { KeyPage } from './KeyPage'
 export { KeyCreate } from './KeyCreate'
 export { ApiCreate } from './ApiCreate'

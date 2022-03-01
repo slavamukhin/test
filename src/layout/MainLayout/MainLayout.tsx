@@ -13,15 +13,13 @@ const Content = styled.div`
   max-width: 1180px;
   min-height: calc(100vh - 48px);
   margin: 0 auto;
-  padding-top: 120px;
+  padding-top: 44px;
   padding-bottom: 80px;
 `
 
 export const MainLayout: FC = ({ children }) => (
   <Root>
     <Header />
-    <Content>
-      {children}
-    </Content>
+    <Content>{children}</Content>
   </Root>
 )

@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie'
+import Cookies, { CookieAttributes } from 'js-cookie'
 export enum ENameCookie {
   AUTH = 'auth',
   TOKEN = 'token',
@@ -12,6 +12,8 @@ export const getCookie = (name: ENameCookie): string | undefined =>
 export const removeCookie = (name: ENameCookie): void =>
   Cookies.remove(`${name}`)
 
-export const setCookie = (name: string, value: string, config: Object) => {
-  Cookies.set(name, value, config)
-}
+export const setCookie = (
+  name: string,
+  value: string,
+  config: CookieAttributes
+) => Cookies.set(name, value, config)

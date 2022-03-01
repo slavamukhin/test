@@ -1,40 +1,47 @@
-import { makeAutoObservable, action, observable, computed, toJS } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 import { api, EApiUrl } from '../api'
 import { KeyObjectDto } from '../interfaces'
+import { setCookie } from '../utils/cookie'
 
 class KeyStore {
-  @observable key: KeyObjectDto = {} as KeyObjectDto
-  @observable pending = false
-  @observable data = false
+  key: KeyObjectDto = {} as KeyObjectDto
+  pending = false
+  data = false
 
   constructor() {
     makeAutoObservable(this)
   }
 
-  @action
   getKey = (keyId: string): void => {
     this.data = false
     this.pending = true
+    
     api
       .get(EApiUrl.KEY + keyId)
       .then((response) => {
-        this.key = response.data
-        this.data = true
-        document.cookie = `edit=${response.headers['x-entity-version']};  path=/; samesite=strict`
+        runInAction(() => {
+          this.key = response.data
+          this.data = true
+        })
+        setCookie('edit', response.headers['x-entity-version'], {
+          path: '/',
+          sameSite: 'strict',
+        })
       })
       .catch((error) => console.error('error', error))
       .finally(() => {
-        this.pending = false
-        this.data = false
+        runInAction(() => {
+          this.pending = false
+          this.data = false
+        })
       })
   }
 
-  @action
   cleanKey = () => {
     this.key = {} as KeyObjectDto
   }
 
-  @computed get keyValues() {
+  get keyValues() {
     return this.key
   }
 }
