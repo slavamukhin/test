@@ -3,7 +3,12 @@ import styled from 'styled-components'
 import { observer } from 'mobx-react-lite'
 import { useNavigate } from 'react-router-dom'
 import { EmptyBlock, Preloader, Table } from '@inno/ui-kit'
-import { DocsOutline, PowerOutline, RedactOutline } from '@inno/icons-kit'
+import {
+  DocsOutline,
+  EyeOutline,
+  PowerOutline,
+  RedactOutline,
+} from '@inno/icons-kit'
 import { ColumnsType } from '@inno/ui-kit/lib/Table/types'
 import { useKeycloak } from '@react-keycloak/web'
 import { Box } from '../../layout/Box'
@@ -71,9 +76,14 @@ export const KeyList = observer(() => {
         rowKey='keyId'
         actions={[
           {
+            icon: <EyeOutline />,
+            onClick: (record) =>
+              navigate(`${ERoutesPath.KEY_LIST_PAGE}/${record.keyId}`),
+          },
+          {
             icon: <RedactOutline />,
-            onClick: (e) => {
-              setKeyId(e.keyId)
+            onClick: (record) => {
+              setKeyId(record.keyId)
               toggleModal()
             },
           },

@@ -1,19 +1,26 @@
 import React, { useCallback, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
-import { useKeycloak } from '@react-keycloak/web'
 import {
   Button,
   ButtonGroup,
   DetailsList,
+  EmptyBlock,
   Preloader,
   Status,
+  Table,
 } from '@inno/ui-kit'
-import { PlusOutline, PowerOutline, RedactOutline } from '@inno/icons-kit'
+import {
+  DocsOutline,
+  PlusOutline,
+  PowerOutline,
+  RedactOutline,
+} from '@inno/icons-kit'
 import { keyStore } from '../../store'
 import { ERoutesPath } from '../../routes'
 import { Card } from '../../layout/Card'
 import { PageHeader } from '../../layout/PageHeader'
+import { AccessRightsObject } from '../../interfaces'
 
 export const KeyView = observer(() => {
   const { getKey, key, pending } = keyStore
@@ -35,17 +42,18 @@ export const KeyView = observer(() => {
   return (
     <>
       <PageHeader
-        title='Космический департамент'
+        title={key.name}
         backLabel='Список ключей'
         onBack={handleBackButtonClick}
         status={<Status type={key.active ? 'active' : 'off'} />}
         actions={
           <ButtonGroup limit={3} type='ghost'>
-            <Button text='Редактировать' icon={<RedactOutline />} />
-            <Button text='Выключить' icon={<PowerOutline />} />
+            <Button icon={<RedactOutline />}>Редактировать</Button>
+            <Button icon={<PowerOutline />}>Выключить</Button>
           </ButtonGroup>
         }
       />
+
       <Card title='Основные параметры'>
         <DetailsList
           items={[
@@ -66,8 +74,73 @@ export const KeyView = observer(() => {
       </Card>
       <Card
         title='Доступные API'
-        actions={<Button type='ghost' text='Добавить' icon={<PlusOutline />} />}
-      ></Card>
+        actions={
+          <Button type='ghost' icon={<PlusOutline />}>
+            Добавить
+          </Button>
+        }
+      >
+        {key.accessRights && key.accessRights.length ? (
+          <Table<AccessRightsObject>
+            columns={[
+              {
+                dataIndex: 'apiId',
+                title: 'Идентификатор',
+              },
+              {
+                title: 'Версии',
+                render: (_, record) =>
+                  record.versions &&
+                  !!record.versions.length &&
+                  record.versions.join(', '),
+              },
+              {
+                title: 'Endpoints',
+                render: (_, record) =>
+                  record.allowedUrls &&
+                  !!record.allowedUrls.length &&
+                  record.allowedUrls[0].methods?.join(', '),
+              },
+              {
+                title: 'URL',
+                render: (_, record) =>
+                  record.allowedUrls &&
+                  !!record.allowedUrls.length &&
+                  record.allowedUrls[0].url,
+              },
+              {
+                dataIndex: 'limits',
+                title: 'Лимит запросов',
+              },
+              {
+                dataIndex: 'quotas',
+                title: 'Квота запросов',
+              },
+            ]}
+            data={key.accessRights}
+            rowKey='apiId'
+            actions={[
+              {
+                icon: <RedactOutline />,
+                onClick: () => {},
+              },
+              {
+                icon: <PowerOutline />,
+                onClick: () => {},
+              },
+            ]}
+          />
+        ) : (
+          <EmptyBlock
+            text='Нет доступных API'
+            icon={<DocsOutline />}
+            action={{
+              text: 'Добавить',
+              onClick: () => {},
+            }}
+          />
+        )}
+      </Card>
     </>
   )
 })
