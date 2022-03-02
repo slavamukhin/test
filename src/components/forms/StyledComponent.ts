@@ -40,6 +40,10 @@ export const StyledInput = styled(Input)`
   width: 48.5%;
 `
 
+export const StyledInputBig = styled(Input)`
+  width: 330px;
+`
+
 export const StyledInputFull = styled(Input)`
   width: 100%;
 `
@@ -80,6 +84,11 @@ export const VersionNameInput = styled(Input)`
 export const StyledDatePicker = styled(DatePicker)`
   width: 45%;
 `
+
+export const StyledDatePickerSmall = styled(DatePicker)`
+  width: 170px;
+`
+
 export const StyledButtonGroup = styled(ButtonGroup)`
   margin-bottom: 32px;
 `
