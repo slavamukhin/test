@@ -2,6 +2,28 @@ import axios, { AxiosRequestConfig } from 'axios'
 import { kc } from '../keycloak'
 import { ENameCookie, getCookie } from '../utils'
 
+axios.interceptors.response.use(
+  function (config) {
+    return config
+  },
+  function (error: any) {
+    console.log('status', error.response.status)
+    if (error.response.status === 403) {
+      window.location.replace('/403')
+    }
+
+    if (error.response.status === 500) {
+      window.location.replace('/500')
+    }
+
+    if (error.response.status === 404) {
+      window.location.replace('/404')
+    }
+
+    return Promise.reject(error)
+  }
+)
+
 export const api = {
   get: (url: string, config?: any) =>
     axios.get(url, {
@@ -33,5 +55,5 @@ export enum EApiUrl {
   KEY_LIST = '/api/v1/keys/',
   KEY_CREATE = '/api/v1/keys/',
   API = '/api/v1/apis/',
-  KEY = '/api/v1/keys/'
+  KEY = '/api/v1/keys/',
 }
