@@ -71,7 +71,7 @@ export const useSubmitForm = (url: string) => {
 
     api[method](url, body)
       .then(() => {
-        method === 'put' ? navigate(0) : navigate(ERoutesPath.API_PAGE)
+        method === 'put' ? navigate(0) : navigate(ERoutesPath.API_LIST_PAGE)
       })
       .catch((err: Error) => {
         setLoading(false)

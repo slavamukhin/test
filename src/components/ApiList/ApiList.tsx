@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { observer } from 'mobx-react-lite';
-import { useNavigate } from 'react-router-dom';
-import { EmptyBlock, Preloader, Table } from '@inno/ui-kit';
-import { AttachOutline, DocsOutline, PowerOutline } from '@inno/icons-kit';
-import { ColumnsType } from '@inno/ui-kit/lib/Table/types';
-import { useKeycloak } from '@react-keycloak/web';
-import { Box } from '../../layout/Box';
-import { ApiObject } from '../../interfaces';
-import { apiListStore } from '../../store';
-import { ERoutesPath } from '../../routes';
-import { EditApi } from '../EditApi';
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { observer } from 'mobx-react-lite'
+import { useNavigate } from 'react-router-dom'
+import { EmptyBlock, Preloader, Status, Table } from '@inno/ui-kit'
+import {
+  DocsOutline,
+  EyeOutline,
+  PowerOutline,
+  RedactOutline,
+} from '@inno/icons-kit'
+import { ColumnsType } from '@inno/ui-kit/lib/Table/types'
+import { useKeycloak } from '@react-keycloak/web'
+import { Box } from '../../layout/Box'
+import { ApiObject } from '../../interfaces'
+import { apiListStore } from '../../store'
+import { ERoutesPath } from '../../routes'
+import { EditApi } from '../EditApi'
 
 const columns: ColumnsType<ApiObject> = [
   {
@@ -28,6 +33,13 @@ const columns: ColumnsType<ApiObject> = [
   {
     dataIndex: 'targetUrl',
     title: 'Target URL',
+  },
+  {
+    dataIndex: 'internal',
+    title: 'Статус',
+    render: (_, record) => (
+      <Status isDot type={record.internal ? 'off' : 'active'} />
+    ),
   },
 ]
 
@@ -60,11 +72,11 @@ export const ApiList = observer(() => {
     return (
       <StyledBox>
         <EmptyBlock
-          text="Ещё не создано ни одно API"
+          text='Ещё не создано ни одно API'
           icon={<DocsOutline />}
           action={{
             text: 'Создать API',
-            onClick: () => navigate(ERoutesPath.API_CREATE)
+            onClick: () => navigate(ERoutesPath.API_CREATE),
           }}
         />
       </StyledBox>
@@ -76,10 +88,14 @@ export const ApiList = observer(() => {
       <Table<ApiObject>
         columns={columns}
         data={apiList}
-        rowKey="apiId"
+        rowKey='apiId'
         actions={[
           {
-            icon: <AttachOutline />,
+            icon: <EyeOutline />,
+            onClick: (e) => navigate(`${ERoutesPath.API_LIST_PAGE}/${e.apiId}`),
+          },
+          {
+            icon: <RedactOutline />,
             onClick: (e) => {
               setApiId(e.apiId)
               toggleModal()

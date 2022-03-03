@@ -1,17 +1,17 @@
 import React, { FC } from 'react'
-import { RouteObject, useRoutes } from 'react-router-dom'
+import { Navigate, RouteObject, useRoutes } from 'react-router-dom'
 import {
-  AuthPage,
   ApiListPage,
   KeyListPage,
   KeyCreate,
   ApiCreate,
-  KeyPage
+  KeyPage,
+  ApiPage,
 } from '../pages'
 
 export enum ERoutesPath {
-  AUTH_PAGE = '/',
-  API_PAGE = '/ui-api',
+  INDEX_PAGE = '/',
+  API_LIST_PAGE = '/ui-api',
   KEY_LIST_PAGE = '/ui-key',
   KEY_CREATE = '/ui-key/create',
   API_CREATE = '/ui-api/create',
@@ -19,12 +19,16 @@ export enum ERoutesPath {
 
 const routes: RouteObject[] = [
   {
-    path: ERoutesPath.AUTH_PAGE,
-    element: <AuthPage />,
+    path: ERoutesPath.INDEX_PAGE,
+    element: <Navigate to={ERoutesPath.API_LIST_PAGE} />,
   },
   {
-    path: ERoutesPath.API_PAGE,
+    path: ERoutesPath.API_LIST_PAGE,
     element: <ApiListPage />,
+  },
+  {
+    path: `${ERoutesPath.API_LIST_PAGE}/:id`,
+    element: <ApiPage />,
   },
   {
     path: ERoutesPath.KEY_LIST_PAGE,

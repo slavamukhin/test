@@ -8,7 +8,7 @@ export const ApiCreateContent: FC = () => {
   const navigane = useNavigate()
 
   const resetForm = () => {
-    navigane(ERoutesPath.API_PAGE)
+    navigane(ERoutesPath.API_LIST_PAGE)
   }
 
   return (
