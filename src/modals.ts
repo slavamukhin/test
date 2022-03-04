@@ -3,8 +3,10 @@ import { EditApiModal } from './components/EditApiModal'
 import { EditKeyModal } from './components/EditKeyModal'
 import { AddVersionModal } from './components/AddVersionModal'
 import { EditVersionModal } from './components/EditVersionModal'
-import { ConfirmDeleteVersionModal } from './components/ConfirmDeleteVersionModal'
-import { ConfirmDeleteAvaivableApiModal } from './components/ConfirmDeleteAvaivableApiModal'
+import { ConfirmDeleteVersionModal } 
+from './components/ConfirmDeleteVersionModal'
+import { ConfirmDeleteAvaivableApiModal } 
+from './components/ConfirmDeleteAvaivableApiModal'
 import { ConfirmTurnOffKeyModal } from './components/ConfirmTurnOffKeyModal'
 import { ConfirmTurnOffApiModal } from './components/ConfirmTurnOffApiModal'
 import { AddAvaivableApiModal } from './components/AddAvaivableApiModal'
