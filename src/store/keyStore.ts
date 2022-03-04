@@ -5,7 +5,7 @@ import { setCookie } from '../utils/cookie'
 
 class KeyStore {
   key: KeyObjectDto = {} as KeyObjectDto
-  pending = false
+  pending = true
   data = false
 
   constructor() {
@@ -15,7 +15,7 @@ class KeyStore {
   getKey = (keyId: string): void => {
     this.data = false
     this.pending = true
-    
+
     api
       .get(EApiUrl.KEY + keyId)
       .then((response) => {
@@ -39,10 +39,6 @@ class KeyStore {
 
   cleanKey = () => {
     this.key = {} as KeyObjectDto
-  }
-
-  get keyValues() {
-    return this.key
   }
 }
 

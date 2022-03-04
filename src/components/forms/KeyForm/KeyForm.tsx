@@ -1,5 +1,4 @@
 import { Button, Checkbox, InputPassword, useNotifications } from '@inno/ui-kit'
-import { useKeycloak } from '@react-keycloak/web'
 import React, { FC, useEffect, useState } from 'react'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import styled from 'styled-components'
@@ -47,7 +46,6 @@ export const KeyForm: FC<KeyFormProps> = observer(
     const { toast } = useNotifications()
     const { isEmptyApiList, getApiList } = apiListStore
     const { availableApiList, clearAvailableApiList, setAllApi } = availableApi
-    const { initialized } = useKeycloak()
     const [validateApi, setValidateApi] = useState(false)
     const [notAuth, setNotAuth] = useState(false)
     const { data } = keyStore
@@ -74,10 +72,10 @@ export const KeyForm: FC<KeyFormProps> = observer(
     }, [error])
 
     useEffect(() => {
-      if (!isEmptyApiList && initialized) {
+      if (isEmptyApiList) {
         getApiList()
       }
-    }, [initialized])
+    }, [])
 
     useEffect(() => {
       if (availableApiList.length) {

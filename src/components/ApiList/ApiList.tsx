@@ -10,12 +10,11 @@ import {
   RedactOutline,
 } from '@inno/icons-kit'
 import { ColumnsType } from '@inno/ui-kit/lib/Table/types'
-import { useKeycloak } from '@react-keycloak/web'
 import { Box } from '../../layout/Box'
 import { ApiObject } from '../../interfaces'
 import { apiListStore } from '../../store'
 import { ERoutesPath } from '../../routes'
-import { EditApi } from '../EditApi'
+import { showApiEditModal, showConfirmTurnOffApiModal } from '../../modals'
 
 const columns: ColumnsType<ApiObject> = [
   {
@@ -45,20 +44,11 @@ const columns: ColumnsType<ApiObject> = [
 
 export const ApiList = observer(() => {
   const { apiList, loading, getApiList } = apiListStore
-  const { initialized } = useKeycloak()
   const navigate = useNavigate()
-  const [open, setOpen] = useState(false)
-  const [apiId, setApiId] = useState('')
 
   useEffect(() => {
-    if (initialized) {
-      getApiList()
-    }
-  }, [initialized])
-
-  const toggleModal = () => setOpen(!open)
-
-  const resetForm = () => toggleModal()
+    getApiList()
+  }, [])
 
   if (loading) {
     return (
@@ -92,26 +82,18 @@ export const ApiList = observer(() => {
         actions={[
           {
             icon: <EyeOutline />,
-            onClick: (e) => navigate(`${ERoutesPath.API_LIST_PAGE}/${e.apiId}`),
+            onClick: ({ apiId }) =>
+              navigate(`${ERoutesPath.API_LIST_PAGE}/${apiId}`),
           },
           {
             icon: <RedactOutline />,
-            onClick: (e) => {
-              setApiId(e.apiId)
-              toggleModal()
-            },
+            onClick: ({ apiId }) => showApiEditModal(apiId),
           },
           {
             icon: <PowerOutline />,
-            onClick: () => {},
+            onClick: ({ apiId }) => showConfirmTurnOffApiModal(apiId),
           },
         ]}
-      />
-      <EditApi
-        open={open}
-        resetForm={resetForm}
-        toggleModal={toggleModal}
-        apiId={apiId}
       />
     </Box>
   )

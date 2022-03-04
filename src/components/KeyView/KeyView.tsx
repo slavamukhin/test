@@ -21,6 +21,14 @@ import { ERoutesPath } from '../../routes'
 import { Card } from '../../layout/Card'
 import { PageHeader } from '../../layout/PageHeader'
 import { AccessRightsObject } from '../../interfaces'
+import { limitsFormatter } from '../../utils/limitsFormatter'
+import { quotasFormatter } from '../../utils/quotasFormatter'
+import {
+  showAddAvaivableApiModal,
+  showConfirmDeleteAvaivableApiModal,
+  showConfirmTurnOffKeyModal,
+  showKeyEditModal,
+} from '../../modals'
 
 export const KeyView = observer(() => {
   const { getKey, key, pending } = keyStore
@@ -48,8 +56,18 @@ export const KeyView = observer(() => {
         status={<Status type={key.active ? 'active' : 'off'} />}
         actions={
           <ButtonGroup limit={3} type='ghost'>
-            <Button icon={<RedactOutline />}>Редактировать</Button>
-            <Button icon={<PowerOutline />}>Выключить</Button>
+            <Button
+              icon={<RedactOutline />}
+              onClick={() => showKeyEditModal(params.id!)}
+            >
+              Редактировать
+            </Button>
+            <Button
+              icon={<PowerOutline />}
+              onClick={() => showConfirmTurnOffKeyModal(params.id!)}
+            >
+              Выключить
+            </Button>
           </ButtonGroup>
         }
       />
@@ -75,7 +93,11 @@ export const KeyView = observer(() => {
       <Card
         title='Доступные API'
         actions={
-          <Button type='ghost' icon={<PlusOutline />}>
+          <Button
+            type='ghost'
+            icon={<PlusOutline />}
+            onClick={showAddAvaivableApiModal}
+          >
             Добавить
           </Button>
         }
@@ -111,10 +133,12 @@ export const KeyView = observer(() => {
               {
                 dataIndex: 'limits',
                 title: 'Лимит запросов',
+                render: (_, record) => limitsFormatter(record.limits!),
               },
               {
                 dataIndex: 'quotas',
                 title: 'Квота запросов',
+                // render: (_, record) => quotasFormatter(record.quotas!),
               },
             ]}
             data={key.accessRights}
@@ -126,7 +150,8 @@ export const KeyView = observer(() => {
               },
               {
                 icon: <PowerOutline />,
-                onClick: () => {},
+                onClick: ({ apiId }) =>
+                  showConfirmDeleteAvaivableApiModal(apiId),
               },
             ]}
           />
@@ -136,7 +161,7 @@ export const KeyView = observer(() => {
             icon={<DocsOutline />}
             action={{
               text: 'Добавить',
-              onClick: () => {},
+              onClick: () => showAddAvaivableApiModal(),
             }}
           />
         )}

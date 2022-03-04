@@ -7,7 +7,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { ERoutesPath } from '../../../routes'
 import { Option2 } from '@inno/ui-kit'
-import { IDataForm } from './KeyFrom'
+import { IDataForm } from './KeyForm'
 
 export const useSubmitForm = (url: string) => {
   const navigate = useNavigate()

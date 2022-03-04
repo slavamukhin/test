@@ -5,7 +5,7 @@ import { setCookie } from '../utils/cookie'
 
 class ApiStore {
   api: ApiObject = {} as ApiObject
-  pending = false
+  pending = true
   data = false
 
   constructor() {
@@ -23,7 +23,7 @@ class ApiStore {
           this.api = response.data
           this.data = true
         })
-        
+
         setCookie('edit', response.headers['x-entity-version'], { path: '' })
       })
       .catch((error) => console.error('error', error))
@@ -37,10 +37,6 @@ class ApiStore {
 
   cleanApi = () => {
     this.api = {} as ApiObject
-  }
-
-  get apiValues() {
-    return this.api
   }
 }
 

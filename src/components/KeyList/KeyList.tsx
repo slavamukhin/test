@@ -2,7 +2,14 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { observer } from 'mobx-react-lite'
 import { useNavigate } from 'react-router-dom'
-import { EmptyBlock, Preloader, Table } from '@inno/ui-kit'
+import {
+  Button,
+  ButtonGroup,
+  EmptyBlock,
+  Preloader,
+  Status,
+  Table,
+} from '@inno/ui-kit'
 import {
   DocsOutline,
   EyeOutline,
@@ -10,12 +17,11 @@ import {
   RedactOutline,
 } from '@inno/icons-kit'
 import { ColumnsType } from '@inno/ui-kit/lib/Table/types'
-import { useKeycloak } from '@react-keycloak/web'
 import { Box } from '../../layout/Box'
 import { KeyShortDescriptionObjectDto } from '../../interfaces'
 import { keyListStore } from '../../store'
 import { ERoutesPath } from '../../routes'
-import { EditKey } from '../EditKey'
+import { showConfirmTurnOffKeyModal, showKeyEditModal } from '../../modals'
 
 const columns: ColumnsType<KeyShortDescriptionObjectDto> = [
   {
@@ -26,24 +32,22 @@ const columns: ColumnsType<KeyShortDescriptionObjectDto> = [
     dataIndex: 'keyId',
     title: 'Идентификатор',
   },
+  // {
+  //   dataIndex: 'active',
+  //   title: 'Статус',
+  //   render: (_, { active }) => (
+  //     <Status isDot type={active ? 'active' : 'off'} />
+  //   ),
+  // },
 ]
 
 export const KeyList = observer(() => {
   const { keyList, loading, getKeyList } = keyListStore
-  const { initialized } = useKeycloak()
   const navigate = useNavigate()
-  const [open, setOpen] = useState(false)
-  const [keyId, setKeyId] = useState('')
 
   useEffect(() => {
-    if (initialized) {
-      getKeyList()
-    }
-  }, [initialized])
-
-  const toggleModal = () => setOpen(!open)
-
-  const resetForm = () => toggleModal()
+    getKeyList()
+  }, [])
 
   if (loading) {
     return (
@@ -77,27 +81,18 @@ export const KeyList = observer(() => {
         actions={[
           {
             icon: <EyeOutline />,
-            onClick: (record) =>
-              navigate(`${ERoutesPath.KEY_LIST_PAGE}/${record.keyId}`),
+            onClick: ({ keyId }) =>
+              navigate(`${ERoutesPath.KEY_LIST_PAGE}/${keyId}`),
           },
           {
             icon: <RedactOutline />,
-            onClick: (record) => {
-              setKeyId(record.keyId)
-              toggleModal()
-            },
+            onClick: ({ keyId }) => showKeyEditModal(keyId),
           },
           {
             icon: <PowerOutline />,
-            onClick: () => {},
+            onClick: ({ keyId }) => showConfirmTurnOffKeyModal(keyId),
           },
         ]}
-      />
-      <EditKey
-        open={open}
-        resetForm={resetForm}
-        toggleModal={toggleModal}
-        keyId={keyId}
       />
     </Box>
   )

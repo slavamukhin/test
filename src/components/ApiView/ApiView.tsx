@@ -27,6 +27,14 @@ import { Card } from '../../layout/Card'
 import { PageHeader } from '../../layout/PageHeader'
 import { VersionObject } from '../../interfaces'
 import { downloadObjectAsJson } from '../../utils'
+import { limitsFormatter } from '../../utils/limitsFormatter'
+import {
+  showAddVersionModal,
+  showApiEditModal,
+  showConfirmDeleteVersionModal,
+  showConfirmTurnOffApiModal,
+  showEditVersionModal,
+} from '../../modals'
 
 export const ApiView = observer(() => {
   const { getApi, api, pending } = apiStore
@@ -54,8 +62,18 @@ export const ApiView = observer(() => {
         status={<Status type={api.internal ? `off` : 'active'} />}
         actions={
           <ButtonGroup limit={3} type='ghost'>
-            <Button icon={<RedactOutline />}>Редактировать</Button>
-            <Button icon={<PowerOutline />}>Выключить</Button>
+            <Button
+              icon={<RedactOutline />}
+              onClick={() => showApiEditModal(params.id!)}
+            >
+              Редактировать
+            </Button>
+            <Button
+              icon={<PowerOutline />}
+              onClick={() => showConfirmTurnOffApiModal(params.id!)}
+            >
+              Выключить
+            </Button>
           </ButtonGroup>
         }
       />
@@ -81,7 +99,7 @@ export const ApiView = observer(() => {
                     },
                     {
                       label: 'Лимит запросов',
-                      value: '5000 за 30 день',
+                      value: limitsFormatter(api.limits!),
                     },
                     {
                       label: 'Авторизация',
@@ -122,7 +140,11 @@ export const ApiView = observer(() => {
       <Card
         title='Версии'
         actions={
-          <Button type='ghost' icon={<PlusOutline />}>
+          <Button
+            type='ghost'
+            icon={<PlusOutline />}
+            onClick={showAddVersionModal}
+          >
             Добавить
           </Button>
         }
@@ -162,11 +184,12 @@ export const ApiView = observer(() => {
             actions={[
               {
                 icon: <RedactOutline />,
-                onClick: () => {},
+                onClick: () => showEditVersionModal(),
               },
               {
                 icon: <TrashOutline />,
-                onClick: () => {},
+                onClick: ({ versionName }) =>
+                  showConfirmDeleteVersionModal(versionName),
               },
             ]}
             data={toJS(api.versionData.versions)}
@@ -178,7 +201,7 @@ export const ApiView = observer(() => {
             icon={<DocsOutline />}
             action={{
               text: 'Добавить версию',
-              onClick: () => {},
+              onClick: () => showAddVersionModal(),
             }}
           />
         )}

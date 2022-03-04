@@ -1,1 +1,0 @@
-export { AddedVersionModal } from './AddedVersionModal'

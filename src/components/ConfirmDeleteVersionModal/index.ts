@@ -1,0 +1,1 @@
+export { ConfirmDeleteVersionModal } from './ConfirmDeleteVersionModal'

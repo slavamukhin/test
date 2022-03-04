@@ -47,10 +47,10 @@ class ApiListStore {
   get versionChosenApi(): Array<Option2> {
     const api = this.apiList.find((api) => api.apiId === this.chosenApi)
     return api?.versionData?.versions?.map(
-        (version: VersionObject, index: number) => ({
-          label: version.versionName as string,
-          value: `${index}`,
-        })
+      (version: VersionObject, index: number) => ({
+        label: version.versionName as string,
+        value: `${index}`,
+      })
     ) as Array<Option2>
   }
 

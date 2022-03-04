@@ -47,6 +47,7 @@
     "webpack-dev-server": "^4.6.0"
   },
   "dependencies": {
+    "@ebay/nice-modal-react": "^1.2.0",
     "@inno/icons-kit": "^1.8.2",
     "@inno/ui-kit": "^2.0.114",
     "@openapitools/openapi-generator-cli": "^2.4.23",
@@ -60,6 +61,7 @@
     "keycloak-js": "^17.0.0",
     "mobx": "^6.3.10",
     "mobx-react-lite": "^3.2.2",
+    "plural-ru": "^2.0.2",
     "querystring": "^0.2.1",
     "rc-resize-observer": "^1.1.2",
     "react": "16.13.1",
