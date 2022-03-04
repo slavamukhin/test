@@ -99,7 +99,7 @@ export const ApiView = observer(() => {
                     },
                     {
                       label: 'Лимит запросов',
-                      value: limitsFormatter(api.limits!),
+                      value: api.limits ? limitsFormatter(api.limits!) : '',
                     },
                     {
                       label: 'Авторизация',

@@ -6,7 +6,7 @@ export const downloadObjectAsJson = (object: any, fileName: string): void => {
   const link = document.createElement('a')
 
   link.setAttribute('href', url)
-  link.setAttribute('download', fileName)
+  link.setAttribute('download', fileName + '.json')
   link.click()
   link.remove()
   URL.revokeObjectURL(url)

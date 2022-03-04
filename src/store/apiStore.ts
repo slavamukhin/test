@@ -5,7 +5,7 @@ import { setCookie } from '../utils/cookie'
 
 class ApiStore {
   api: ApiObject = {} as ApiObject
-  pending = true
+  pending = false
   data = false
 
   constructor() {
