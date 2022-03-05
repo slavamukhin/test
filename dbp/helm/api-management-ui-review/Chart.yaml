@@ -11,6 +11,10 @@ dependencies:
     version: ^1.0.0
     repository: "file://../api-management-ui"
 
+  - name: api-gateway
+    version: ^1.0.0
+    repository: "@dbp"
+
 maintainers:
   - name: Inno.Tech
     email: dbp@inno.tech
