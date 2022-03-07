@@ -184,7 +184,7 @@ export const ApiView = observer(() => {
             actions={[
               {
                 icon: <RedactOutline />,
-                onClick: () => showEditVersionModal(),
+                onClick: (record) => showEditVersionModal(record),
               },
               {
                 icon: <TrashOutline />,

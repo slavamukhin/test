@@ -1,4 +1,4 @@
-import { ButtonGroup, DatePicker, Dropzone, Input, Select2 } from '@inno/ui-kit'
+import { ButtonGroup, DatePicker, Input, Row, Select2 } from '@inno/ui-kit'
 import styled from 'styled-components'
 
 export const MainTitlt = styled.h4`
@@ -95,4 +95,12 @@ export const StyledButtonGroup = styled(ButtonGroup)`
 
 export const WrapperLoader = styled.div`
   height: 654px;
+`
+
+export const FormRow = styled(Row)`
+  margin-bottom: 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `

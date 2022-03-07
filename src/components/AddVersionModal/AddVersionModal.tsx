@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { Modal } from '@inno/ui-kit'
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
-import { AddingVersionForm } from '../forms/AddingVersionForm'
+import { VersionForm } from '../forms/VersionForm'
 
 export const AddVersionModal = NiceModal.create(() => {
   const modal = useModal()
@@ -18,7 +18,7 @@ export const AddVersionModal = NiceModal.create(() => {
       isOpen={modal.visible}
       handleClose={handleClose}
     >
-      <AddingVersionForm />
+      <VersionForm />
     </Modal>
   )
 })
