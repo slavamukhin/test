@@ -12,7 +12,7 @@ dependencies:
     repository: "file://../api-management-ui"
 
   - name: api-gateway
-    version: 1.0.1-45852.709c62ae
+    version: ^1.0.2
     repository: "@dbp"
 
 maintainers:
