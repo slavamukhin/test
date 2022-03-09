@@ -34,5 +34,6 @@ module.exports = {
     'no-dupe-keys': 'off',
     'object-curly-spacing': ['error', 'always'],
     'new-cap': 0,
+    'no-unused-vars': 'off'
   }
 }
