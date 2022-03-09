@@ -24,7 +24,6 @@ variables:
 
   # for review stand
   REVIEW_STAND_CHART: $PROJECT_NAME-review-$BUILD_VERSION.tgz
-  REVIEW_STAND_TEST_DATA_CHART: ocs-review-test-data-1.0.0.tgz
 
 include:
   - project: dbp/ci_templates
