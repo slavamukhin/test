@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { observer } from 'mobx-react-lite'
 import { useNavigate } from 'react-router-dom'
 import { EmptyBlock, Preloader, Status, Table } from '@inno/ui-kit'
-import {
-  DocsOutline,
-  EyeOutline,
-  PowerOutline,
-  RedactOutline,
-} from '@inno/icons-kit'
+import { DocsOutline } from '@inno/icons-kit'
 import { ColumnsType } from '@inno/ui-kit/lib/Table/types'
+import { toJS } from 'mobx'
 import { Box } from '../../layout/Box'
 import { ApiObject } from '../../interfaces'
 import { apiListStore } from '../../store'
 import { ERoutesPath } from '../../routes'
-import { showApiEditModal, showConfirmTurnOffApiModal } from '../../modals'
+import { ApiListActions } from './ApiListActions'
 
 const columns: ColumnsType<ApiObject> = [
   {
@@ -39,6 +35,15 @@ const columns: ColumnsType<ApiObject> = [
     render: (_, record) => (
       <Status isDot type={record.internal ? 'off' : 'active'} />
     ),
+  },
+  {
+    dataIndex: 'actions',
+    width: 40,
+    align: 'right',
+    render: (_, { apiId }) => <ApiListActions apiId={apiId} />,
+    onCell: () => ({
+      onClick: (event) => event.stopPropagation(),
+    }),
   },
 ]
 
@@ -77,23 +82,11 @@ export const ApiList = observer(() => {
     <Box>
       <Table<ApiObject>
         columns={columns}
-        data={apiList}
+        data={toJS(apiList)}
         rowKey='apiId'
-        actions={[
-          {
-            icon: <EyeOutline />,
-            onClick: ({ apiId }) =>
-              navigate(`${ERoutesPath.API_LIST_PAGE}/${apiId}`),
-          },
-          {
-            icon: <RedactOutline />,
-            onClick: ({ apiId }) => showApiEditModal(apiId),
-          },
-          {
-            icon: <PowerOutline />,
-            onClick: ({ apiId }) => showConfirmTurnOffApiModal(apiId),
-          },
-        ]}
+        onRow={({ apiId }) => ({
+          onClick: () => navigate(`${ERoutesPath.API_LIST_PAGE}/${apiId}`),
+        })}
       />
     </Box>
   )

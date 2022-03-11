@@ -1,27 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { observer } from 'mobx-react-lite'
 import { useNavigate } from 'react-router-dom'
-import {
-  Button,
-  ButtonGroup,
-  EmptyBlock,
-  Preloader,
-  Status,
-  Table,
-} from '@inno/ui-kit'
-import {
-  DocsOutline,
-  EyeOutline,
-  PowerOutline,
-  RedactOutline,
-} from '@inno/icons-kit'
+import { EmptyBlock, Preloader, Table } from '@inno/ui-kit'
+import { DocsOutline } from '@inno/icons-kit'
 import { ColumnsType } from '@inno/ui-kit/lib/Table/types'
+import { toJS } from 'mobx'
 import { Box } from '../../layout/Box'
 import { KeyShortDescriptionObjectDto } from '../../interfaces'
 import { keyListStore } from '../../store'
 import { ERoutesPath } from '../../routes'
-import { showConfirmTurnOffKeyModal, showKeyEditModal } from '../../modals'
+import { KeyListActions } from './KeyListActions'
 
 const columns: ColumnsType<KeyShortDescriptionObjectDto> = [
   {
@@ -39,6 +28,15 @@ const columns: ColumnsType<KeyShortDescriptionObjectDto> = [
   //     <Status isDot type={active ? 'active' : 'off'} />
   //   ),
   // },
+  {
+    dataIndex: 'actions',
+    width: 40,
+    align: 'right',
+    render: (_, { keyId }) => <KeyListActions keyId={keyId} />,
+    onCell: () => ({
+      onClick: (event) => event.stopPropagation(),
+    }),
+  },
 ]
 
 export const KeyList = observer(() => {
@@ -76,23 +74,11 @@ export const KeyList = observer(() => {
     <Box>
       <Table<KeyShortDescriptionObjectDto>
         columns={columns}
-        data={keyList}
+        data={toJS(keyList)}
         rowKey='keyId'
-        actions={[
-          {
-            icon: <EyeOutline />,
-            onClick: ({ keyId }) =>
-              navigate(`${ERoutesPath.KEY_LIST_PAGE}/${keyId}`),
-          },
-          {
-            icon: <RedactOutline />,
-            onClick: ({ keyId }) => showKeyEditModal(keyId),
-          },
-          {
-            icon: <PowerOutline />,
-            onClick: ({ keyId }) => showConfirmTurnOffKeyModal(keyId),
-          },
-        ]}
+        onRow={({ keyId }) => ({
+          onClick: () => navigate(`${ERoutesPath.KEY_LIST_PAGE}/${keyId}`),
+        })}
       />
     </Box>
   )
