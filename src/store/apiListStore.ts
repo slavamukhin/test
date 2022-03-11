@@ -1,5 +1,4 @@
 import { Option2 } from '@inno/ui-kit'
-import { ColumnsType } from '@inno/ui-kit/lib/Table/types'
 import { makeAutoObservable, runInAction } from 'mobx'
 import { api, EApiUrl } from '../api'
 import { ApiObject, VersionObject } from '../interfaces'

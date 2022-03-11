@@ -62,7 +62,6 @@ export const AddingApi: FC = observer(() => {
           {
             icon: <TrashOutline />,
             onClick: (e) => {
-              console.log('e', e)
               setEditableApiName('')
               deleteApi(e.name)
             },

@@ -16,7 +16,7 @@ import {
   PowerOutline,
   RedactOutline,
 } from '@inno/icons-kit'
-import { keyStore } from '../../store'
+import { apiListStore, availableApi, keyStore } from '../../store'
 import { ERoutesPath } from '../../routes'
 import { Card } from '../../layout/Card'
 import { PageHeader } from '../../layout/PageHeader'
@@ -30,14 +30,24 @@ import {
   showKeyEditModal,
 } from '../../modals'
 
+
 export const KeyView = observer(() => {
   const { getKey, key, pending } = keyStore
+  const { getApiList, chooseApi } = apiListStore
   const params = useParams()
   const navigate = useNavigate()
+  const { setEditableApiName, setAllApi } = availableApi
 
   useEffect(() => {
+    getApiList()
     getKey(params.id!)
   }, [params.id])
+
+  useEffect(() => {
+    if (key) {
+      setAllApi(key.accessRights)
+    }
+  }, [key])
 
   const handleBackButtonClick = useCallback(() => {
     navigate(ERoutesPath.KEY_LIST_PAGE)
@@ -96,7 +106,10 @@ export const KeyView = observer(() => {
           <Button
             type='ghost'
             icon={<PlusOutline />}
-            onClick={showAddAvaivableApiModal}
+            onClick={() => {
+              setEditableApiName('')
+              showAddAvaivableApiModal(false)}
+            }
           >
             Добавить
           </Button>
@@ -138,7 +151,7 @@ export const KeyView = observer(() => {
               {
                 dataIndex: 'quotas',
                 title: 'Квота запросов',
-                // render: (_, record) => quotasFormatter(record.quotas!),
+                render: (_, record) => quotasFormatter(record.quotas!),
               },
             ]}
             data={key.accessRights}
@@ -146,7 +159,11 @@ export const KeyView = observer(() => {
             actions={[
               {
                 icon: <RedactOutline />,
-                onClick: () => {},
+                onClick: (e) => {
+                  chooseApi(e.apiId)
+                  setEditableApiName(e.apiId)
+                  showAddAvaivableApiModal(true)
+                },
               },
               {
                 icon: <PowerOutline />,

@@ -1,4 +1,4 @@
 export interface AddingApiFormProps {
   toggleModal: () => void
-  edit?: boolean
+  edit?: boolean,
 }

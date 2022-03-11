@@ -3,7 +3,8 @@ import React, { useCallback } from 'react'
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
 import { AddingApiForm } from '../forms/AddingApiForm'
 
-export const AddAvaivableApiModal = NiceModal.create(() => {
+export const AddAvaivableApiModal = NiceModal.create(({edit}) => {
+  const title = edit ? 'Редактирование доступа к API' : 'Добавление доступа к API'
   const modal = useModal()
 
   const handleClose = useCallback(() => {
@@ -15,8 +16,9 @@ export const AddAvaivableApiModal = NiceModal.create(() => {
     <Modal
       handleClose={handleClose}
       size='lg'
-      title='Добавление доступа к API'
+      title={title}
       isOpen={modal.visible}
+      
     >
       <AddingApiForm toggleModal={handleClose} />
     </Modal>

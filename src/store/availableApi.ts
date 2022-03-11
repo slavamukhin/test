@@ -1,5 +1,5 @@
 import { ColumnsType } from '@inno/ui-kit/lib/Table/types'
-import { makeAutoObservable, action, observable, computed, toJS } from 'mobx'
+import { makeAutoObservable, action, observable, computed } from 'mobx'
 import { api, EApiUrl } from '../api'
 import { AccessRightsObject, ApiObject } from '../interfaces'
 

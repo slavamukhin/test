@@ -35,5 +35,5 @@ export const showConfirmTurnOffKeyModal = (keyId: string) =>
 export const showConfirmTurnOffApiModal = (apiId: string) =>
   NiceModal.show(ConfirmTurnOffApiModal, { apiId })
 
-export const showAddAvaivableApiModal = () =>
-  NiceModal.show(AddAvaivableApiModal)
+export const showAddAvaivableApiModal = (edit?: boolean) =>
+  NiceModal.show(AddAvaivableApiModal, {edit})

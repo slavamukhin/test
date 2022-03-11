@@ -1,5 +1,4 @@
 import { Button, Option2 } from '@inno/ui-kit'
-import { SelectValue } from '@inno/ui-kit/lib/Select2/components/SelectControl/SelectValue'
 import { toJS } from 'mobx'
 import React, { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
