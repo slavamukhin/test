@@ -1,7 +1,13 @@
 import Keycloak from 'keycloak-js'
 
+const SEPARATOR = '.'
+const hostname = window.location.hostname
+const arrayHostName: Array<string> = hostname.split(SEPARATOR)
+arrayHostName.shift()
+const partNameHost = arrayHostName.join(SEPARATOR)
+
 const keycloak = Keycloak({
-  url: 'https://keycloak-uzcards.dbp.inno.tech/auth',
+  url: `https://keycloak-${partNameHost}/auth`,
   realm: 'Uzcard',
   clientId: 'tashkent',
 })
