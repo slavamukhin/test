@@ -1,10 +1,10 @@
 apiVersion: v2
 kubeVersion: ">=1.14.0-0"
 
-name: api-management-ui
-description: API Management Frontend service for API Gateway chart
-appVersion: 1.0.1
-version: 1.0.1
+name: api-management-ui-review
+description: API Management Frontend service for API Gateway review chart
+appVersion: 1.0.2
+version: 1.0.2
 
 dependencies:
   - name: api-management-ui
