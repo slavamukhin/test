@@ -13,6 +13,7 @@ class ApiStore {
   }
 
   getApi = (apiId: string): void => {
+    console.log('getApi start', this.data)
     this.data = false
     this.pending = true
 
@@ -24,13 +25,13 @@ class ApiStore {
           this.data = true
         })
 
+        console.log('getApi end', this.data)
         setCookie('edit', response.headers['x-entity-version'], { path: '' })
       })
       .catch((error) => console.error('error', error))
       .finally(() => {
         runInAction(() => {
           this.pending = false
-          this.data = false
         })
       })
   }

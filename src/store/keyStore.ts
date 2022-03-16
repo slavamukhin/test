@@ -32,7 +32,6 @@ class KeyStore {
       .finally(() => {
         runInAction(() => {
           this.pending = false
-          this.data = false
         })
       })
   }
