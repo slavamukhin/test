@@ -23,10 +23,7 @@ class KeyStore {
           this.key = response.data
           this.data = true
         })
-        setCookie('edit', response.headers['x-entity-version'], {
-          path: '/',
-          sameSite: 'strict',
-        })
+        setCookie('edit', response.headers['x-entity-version'])
       })
       .catch((error) => console.error('error', error))
       .finally(() => {

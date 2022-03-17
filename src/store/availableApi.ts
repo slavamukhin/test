@@ -13,7 +13,7 @@ class AvailableApi {
 
   @action
   addApi = (api: AccessRightsObject): void => {
-    console.log(this.editableApiName)
+    
     if (this.editableApiName) {
       this.availableApiList = this.availableApiList.filter(item => item.apiId !== this.editableApiName)
       this.availableApiList.push(api)

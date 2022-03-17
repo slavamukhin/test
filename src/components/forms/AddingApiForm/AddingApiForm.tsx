@@ -70,7 +70,6 @@ export const AddingApiForm: FC<AddingApiFormProps> = ({ toggleModal }) => {
           versions?.find((item) => item === version.label)
         )
       )
-      console.log(toJS(editableApiData))
       setChosenMethodsApi(
         methodsApi.filter((method) =>
           methods?.find((item) => item === method.label)

@@ -7,7 +7,7 @@ axios.interceptors.response.use(
     return config
   },
   function (error: any) {
-    console.log('status', error.response.status)
+    
     if (error.response.status === 403) {
       window.location.replace('/403')
     }

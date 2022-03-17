@@ -15,5 +15,5 @@ export const removeCookie = (name: ENameCookie): void =>
 export const setCookie = (
   name: string,
   value: string,
-  config: CookieAttributes
+  config?: CookieAttributes
 ) => Cookies.set(name, value, config)

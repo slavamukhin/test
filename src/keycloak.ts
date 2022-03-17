@@ -6,8 +6,6 @@ const arrayHostName: Array<string> = hostname.split(SEPARATOR)
 arrayHostName.shift()
 const partNameHost = arrayHostName.join(SEPARATOR)
 
-console.log('partNameHost', partNameHost)
-
 const keycloak = Keycloak({
   url: `https://keycloak-${partNameHost}/auth`,
   realm: 'Uzcard',
