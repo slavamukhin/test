@@ -2,3 +2,7 @@ ocsm-review:
   ocsm-ui-facade:
     api-management-ui:
       enabled: false
+
+api-gateway:
+  technological-platform:
+    enabled: false
